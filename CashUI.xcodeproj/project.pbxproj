@@ -8,12 +8,99 @@
 
 /* Begin PBXBuildFile section */
 		B36B71D02497C9AE009A7E4A /* CashUI.h in Headers */ = {isa = PBXBuildFile; fileRef = B36B71CE2497C9AE009A7E4A /* CashUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B36B71DE2497C9C5009A7E4A /* WACSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B71D72497C9C5009A7E4A /* WACSessionManager.swift */; };
+		B36B71DF2497C9C5009A7E4A /* WACTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B71D82497C9C5009A7E4A /* WACTransaction.swift */; };
+		B36B71E02497C9C5009A7E4A /* WACTransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B71D92497C9C5009A7E4A /* WACTransactionManager.swift */; };
+		B36B71E12497C9C5009A7E4A /* String+WACAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B71DB2497C9C5009A7E4A /* String+WACAdditions.swift */; };
+		B36B71E22497C9C5009A7E4A /* UserDefaults+Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B71DC2497C9C5009A7E4A /* UserDefaults+Persistable.swift */; };
+		B36B71E32497C9C5009A7E4A /* Date+WACAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B71DD2497C9C5009A7E4A /* Date+WACAdditions.swift */; };
+		B36B72012497CB10009A7E4A /* WacSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36B72002497CB10009A7E4A /* WacSDK.framework */; };
+		B36B72022497CB10009A7E4A /* WacSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B36B72002497CB10009A7E4A /* WacSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B36B722024984E2C009A7E4A /* WACActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B720524984E2B009A7E4A /* WACActivityViewController.swift */; };
+		B36B722124984E2C009A7E4A /* WACListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36B720624984E2C009A7E4A /* WACListView.xib */; };
+		B36B722224984E2C009A7E4A /* WACListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B720724984E2C009A7E4A /* WACListViewController.swift */; };
+		B36B722324984E2C009A7E4A /* WACAtmLocationsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36B720824984E2C009A7E4A /* WACAtmLocationsView.xib */; };
+		B36B722424984E2C009A7E4A /* WACMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B720924984E2C009A7E4A /* WACMenuViewController.swift */; };
+		B36B722524984E2C009A7E4A /* WACMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36B720A24984E2C009A7E4A /* WACMenuView.xib */; };
+		B36B722624984E2C009A7E4A /* WACActivityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36B720B24984E2C009A7E4A /* WACActivityTableViewCell.xib */; };
+		B36B722724984E2C009A7E4A /* WACWithdrawalStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36B720C24984E2C009A7E4A /* WACWithdrawalStatusView.xib */; };
+		B36B722924984E2C009A7E4A /* AtmInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B720F24984E2C009A7E4A /* AtmInfoView.swift */; };
+		B36B722A24984E2C009A7E4A /* AtmAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B721024984E2C009A7E4A /* AtmAnnotation.swift */; };
+		B36B722B24984E2C009A7E4A /* AtmAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B721124984E2C009A7E4A /* AtmAnnotationView.swift */; };
+		B36B722C24984E2C009A7E4A /* AtmInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36B721224984E2C009A7E4A /* AtmInfoView.xib */; };
+		B36B722D24984E2C009A7E4A /* WACActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36B721324984E2C009A7E4A /* WACActivityView.xib */; };
+		B36B722E24984E2C009A7E4A /* WACAtmLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B721424984E2C009A7E4A /* WACAtmLocationsViewController.swift */; };
+		B36B722F24984E2C009A7E4A /* UIView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B721624984E2C009A7E4A /* UIView+Animations.swift */; };
+		B36B723024984E2C009A7E4A /* WACVerifyCashCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B721724984E2C009A7E4A /* WACVerifyCashCodeViewController.swift */; };
+		B36B723124984E2C009A7E4A /* WACVerifyCashCodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36B721824984E2C009A7E4A /* WACVerifyCashCodeView.xib */; };
+		B36B723224984E2C009A7E4A /* WACSendVerificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36B721924984E2C009A7E4A /* WACSendVerificationView.xib */; };
+		B36B723324984E2C009A7E4A /* WACActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B721A24984E2C009A7E4A /* WACActionViewController.swift */; };
+		B36B723424984E2C009A7E4A /* WACSendVerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B721B24984E2C009A7E4A /* WACSendVerificationCodeViewController.swift */; };
+		B36B723624984E2C009A7E4A /* WACActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B721D24984E2C009A7E4A /* WACActivityTableViewCell.swift */; };
+		B36B723724984E2C009A7E4A /* WACWithdrawalStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B721E24984E2C009A7E4A /* WACWithdrawalStatusViewController.swift */; };
+		B36B723824984E2C009A7E4A /* WACMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B721F24984E2C009A7E4A /* WACMapViewController.swift */; };
+		B36B723A24985007009A7E4A /* Optional+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B723924985007009A7E4A /* Optional+Additions.swift */; };
+		B36B723C24985063009A7E4A /* UIButton+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B723B24985063009A7E4A /* UIButton+Additions.swift */; };
+		B36B723E24985101009A7E4A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B723D24985100009A7E4A /* Theme.swift */; };
+		B36B7240249851B0009A7E4A /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B723F249851B0009A7E4A /* UIColor+Additions.swift */; };
+		B36B72422498527A009A7E4A /* MKMapView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B72412498527A009A7E4A /* MKMapView+Additions.swift */; };
+		B36B7244249852D9009A7E4A /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B7243249852D9009A7E4A /* UIImage+Additions.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B36B72032497CB10009A7E4A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B36B72022497CB10009A7E4A /* WacSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B36B71CB2497C9AE009A7E4A /* CashUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CashUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36B71CE2497C9AE009A7E4A /* CashUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CashUI.h; sourceTree = "<group>"; };
 		B36B71CF2497C9AE009A7E4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B36B71D72497C9C5009A7E4A /* WACSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WACSessionManager.swift; sourceTree = "<group>"; };
+		B36B71D82497C9C5009A7E4A /* WACTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WACTransaction.swift; sourceTree = "<group>"; };
+		B36B71D92497C9C5009A7E4A /* WACTransactionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WACTransactionManager.swift; sourceTree = "<group>"; };
+		B36B71DB2497C9C5009A7E4A /* String+WACAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+WACAdditions.swift"; sourceTree = "<group>"; };
+		B36B71DC2497C9C5009A7E4A /* UserDefaults+Persistable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Persistable.swift"; sourceTree = "<group>"; };
+		B36B71DD2497C9C5009A7E4A /* Date+WACAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+WACAdditions.swift"; sourceTree = "<group>"; };
+		B36B72002497CB10009A7E4A /* WacSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WacSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B36B720524984E2B009A7E4A /* WACActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WACActivityViewController.swift; sourceTree = "<group>"; };
+		B36B720624984E2C009A7E4A /* WACListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WACListView.xib; sourceTree = "<group>"; };
+		B36B720724984E2C009A7E4A /* WACListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WACListViewController.swift; sourceTree = "<group>"; };
+		B36B720824984E2C009A7E4A /* WACAtmLocationsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WACAtmLocationsView.xib; sourceTree = "<group>"; };
+		B36B720924984E2C009A7E4A /* WACMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WACMenuViewController.swift; sourceTree = "<group>"; };
+		B36B720A24984E2C009A7E4A /* WACMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WACMenuView.xib; sourceTree = "<group>"; };
+		B36B720B24984E2C009A7E4A /* WACActivityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WACActivityTableViewCell.xib; sourceTree = "<group>"; };
+		B36B720C24984E2C009A7E4A /* WACWithdrawalStatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WACWithdrawalStatusView.xib; sourceTree = "<group>"; };
+		B36B720F24984E2C009A7E4A /* AtmInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtmInfoView.swift; sourceTree = "<group>"; };
+		B36B721024984E2C009A7E4A /* AtmAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtmAnnotation.swift; sourceTree = "<group>"; };
+		B36B721124984E2C009A7E4A /* AtmAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtmAnnotationView.swift; sourceTree = "<group>"; };
+		B36B721224984E2C009A7E4A /* AtmInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AtmInfoView.xib; sourceTree = "<group>"; };
+		B36B721324984E2C009A7E4A /* WACActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WACActivityView.xib; sourceTree = "<group>"; };
+		B36B721424984E2C009A7E4A /* WACAtmLocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WACAtmLocationsViewController.swift; sourceTree = "<group>"; };
+		B36B721624984E2C009A7E4A /* UIView+Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Animations.swift"; path = "../UI/ActionViewControllers/UIView+Animations.swift"; sourceTree = "<group>"; };
+		B36B721724984E2C009A7E4A /* WACVerifyCashCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WACVerifyCashCodeViewController.swift; sourceTree = "<group>"; };
+		B36B721824984E2C009A7E4A /* WACVerifyCashCodeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WACVerifyCashCodeView.xib; sourceTree = "<group>"; };
+		B36B721924984E2C009A7E4A /* WACSendVerificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WACSendVerificationView.xib; sourceTree = "<group>"; };
+		B36B721A24984E2C009A7E4A /* WACActionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WACActionViewController.swift; sourceTree = "<group>"; };
+		B36B721B24984E2C009A7E4A /* WACSendVerificationCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WACSendVerificationCodeViewController.swift; sourceTree = "<group>"; };
+		B36B721D24984E2C009A7E4A /* WACActivityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WACActivityTableViewCell.swift; sourceTree = "<group>"; };
+		B36B721E24984E2C009A7E4A /* WACWithdrawalStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WACWithdrawalStatusViewController.swift; sourceTree = "<group>"; };
+		B36B721F24984E2C009A7E4A /* WACMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WACMapViewController.swift; sourceTree = "<group>"; };
+		B36B723924985007009A7E4A /* Optional+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Additions.swift"; sourceTree = "<group>"; };
+		B36B723B24985063009A7E4A /* UIButton+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Additions.swift"; sourceTree = "<group>"; };
+		B36B723D24985100009A7E4A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		B36B723F249851B0009A7E4A /* UIColor+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
+		B36B72412498527A009A7E4A /* MKMapView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Additions.swift"; sourceTree = "<group>"; };
+		B36B7243249852D9009A7E4A /* UIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B36B72012497CB10009A7E4A /* WacSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -32,6 +120,7 @@
 			children = (
 				B36B71CD2497C9AE009A7E4A /* CashUI */,
 				B36B71CC2497C9AE009A7E4A /* Products */,
+				B36B71FF2497CB10009A7E4A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -46,10 +135,93 @@
 		B36B71CD2497C9AE009A7E4A /* CashUI */ = {
 			isa = PBXGroup;
 			children = (
+				B36B720424984D68009A7E4A /* UI */,
+				B36B71DA2497C9C5009A7E4A /* Extensions */,
+				B36B71D62497C9C5009A7E4A /* Model */,
 				B36B71CE2497C9AE009A7E4A /* CashUI.h */,
 				B36B71CF2497C9AE009A7E4A /* Info.plist */,
 			);
 			path = CashUI;
+			sourceTree = "<group>";
+		};
+		B36B71D62497C9C5009A7E4A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B36B71D72497C9C5009A7E4A /* WACSessionManager.swift */,
+				B36B71D82497C9C5009A7E4A /* WACTransaction.swift */,
+				B36B71D92497C9C5009A7E4A /* WACTransactionManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B36B71DA2497C9C5009A7E4A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B36B721624984E2C009A7E4A /* UIView+Animations.swift */,
+				B36B71DB2497C9C5009A7E4A /* String+WACAdditions.swift */,
+				B36B71DC2497C9C5009A7E4A /* UserDefaults+Persistable.swift */,
+				B36B71DD2497C9C5009A7E4A /* Date+WACAdditions.swift */,
+				B36B723924985007009A7E4A /* Optional+Additions.swift */,
+				B36B723B24985063009A7E4A /* UIButton+Additions.swift */,
+				B36B723F249851B0009A7E4A /* UIColor+Additions.swift */,
+				B36B72412498527A009A7E4A /* MKMapView+Additions.swift */,
+				B36B7243249852D9009A7E4A /* UIImage+Additions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B36B71FF2497CB10009A7E4A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B36B72002497CB10009A7E4A /* WacSDK.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B36B720424984D68009A7E4A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B36B721524984E2C009A7E4A /* ActionViewControllers */,
+				B36B720E24984E2C009A7E4A /* Map */,
+				B36B721D24984E2C009A7E4A /* WACActivityTableViewCell.swift */,
+				B36B720B24984E2C009A7E4A /* WACActivityTableViewCell.xib */,
+				B36B720524984E2B009A7E4A /* WACActivityViewController.swift */,
+				B36B721324984E2C009A7E4A /* WACActivityView.xib */,
+				B36B721424984E2C009A7E4A /* WACAtmLocationsViewController.swift */,
+				B36B720824984E2C009A7E4A /* WACAtmLocationsView.xib */,
+				B36B720724984E2C009A7E4A /* WACListViewController.swift */,
+				B36B720624984E2C009A7E4A /* WACListView.xib */,
+				B36B721F24984E2C009A7E4A /* WACMapViewController.swift */,
+				B36B720924984E2C009A7E4A /* WACMenuViewController.swift */,
+				B36B720A24984E2C009A7E4A /* WACMenuView.xib */,
+				B36B721E24984E2C009A7E4A /* WACWithdrawalStatusViewController.swift */,
+				B36B720C24984E2C009A7E4A /* WACWithdrawalStatusView.xib */,
+				B36B723D24985100009A7E4A /* Theme.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		B36B720E24984E2C009A7E4A /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				B36B720F24984E2C009A7E4A /* AtmInfoView.swift */,
+				B36B721024984E2C009A7E4A /* AtmAnnotation.swift */,
+				B36B721124984E2C009A7E4A /* AtmAnnotationView.swift */,
+				B36B721224984E2C009A7E4A /* AtmInfoView.xib */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		B36B721524984E2C009A7E4A /* ActionViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B36B721724984E2C009A7E4A /* WACVerifyCashCodeViewController.swift */,
+				B36B721824984E2C009A7E4A /* WACVerifyCashCodeView.xib */,
+				B36B721A24984E2C009A7E4A /* WACActionViewController.swift */,
+				B36B721B24984E2C009A7E4A /* WACSendVerificationCodeViewController.swift */,
+				B36B721924984E2C009A7E4A /* WACSendVerificationView.xib */,
+			);
+			path = ActionViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +246,7 @@
 				B36B71C72497C9AE009A7E4A /* Sources */,
 				B36B71C82497C9AE009A7E4A /* Frameworks */,
 				B36B71C92497C9AE009A7E4A /* Resources */,
+				B36B72032497CB10009A7E4A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -121,6 +294,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B36B722624984E2C009A7E4A /* WACActivityTableViewCell.xib in Resources */,
+				B36B722724984E2C009A7E4A /* WACWithdrawalStatusView.xib in Resources */,
+				B36B722324984E2C009A7E4A /* WACAtmLocationsView.xib in Resources */,
+				B36B722D24984E2C009A7E4A /* WACActivityView.xib in Resources */,
+				B36B722524984E2C009A7E4A /* WACMenuView.xib in Resources */,
+				B36B722124984E2C009A7E4A /* WACListView.xib in Resources */,
+				B36B723224984E2C009A7E4A /* WACSendVerificationView.xib in Resources */,
+				B36B722C24984E2C009A7E4A /* AtmInfoView.xib in Resources */,
+				B36B723124984E2C009A7E4A /* WACVerifyCashCodeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +313,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B36B723624984E2C009A7E4A /* WACActivityTableViewCell.swift in Sources */,
+				B36B71E12497C9C5009A7E4A /* String+WACAdditions.swift in Sources */,
+				B36B722F24984E2C009A7E4A /* UIView+Animations.swift in Sources */,
+				B36B71E32497C9C5009A7E4A /* Date+WACAdditions.swift in Sources */,
+				B36B722A24984E2C009A7E4A /* AtmAnnotation.swift in Sources */,
+				B36B722024984E2C009A7E4A /* WACActivityViewController.swift in Sources */,
+				B36B7240249851B0009A7E4A /* UIColor+Additions.swift in Sources */,
+				B36B722B24984E2C009A7E4A /* AtmAnnotationView.swift in Sources */,
+				B36B7244249852D9009A7E4A /* UIImage+Additions.swift in Sources */,
+				B36B722424984E2C009A7E4A /* WACMenuViewController.swift in Sources */,
+				B36B723E24985101009A7E4A /* Theme.swift in Sources */,
+				B36B723424984E2C009A7E4A /* WACSendVerificationCodeViewController.swift in Sources */,
+				B36B71DF2497C9C5009A7E4A /* WACTransaction.swift in Sources */,
+				B36B723024984E2C009A7E4A /* WACVerifyCashCodeViewController.swift in Sources */,
+				B36B722224984E2C009A7E4A /* WACListViewController.swift in Sources */,
+				B36B723A24985007009A7E4A /* Optional+Additions.swift in Sources */,
+				B36B723724984E2C009A7E4A /* WACWithdrawalStatusViewController.swift in Sources */,
+				B36B723324984E2C009A7E4A /* WACActionViewController.swift in Sources */,
+				B36B723C24985063009A7E4A /* UIButton+Additions.swift in Sources */,
+				B36B71DE2497C9C5009A7E4A /* WACSessionManager.swift in Sources */,
+				B36B71E02497C9C5009A7E4A /* WACTransactionManager.swift in Sources */,
+				B36B722924984E2C009A7E4A /* AtmInfoView.swift in Sources */,
+				B36B723824984E2C009A7E4A /* WACMapViewController.swift in Sources */,
+				B36B722E24984E2C009A7E4A /* WACAtmLocationsViewController.swift in Sources */,
+				B36B71E22497C9C5009A7E4A /* UserDefaults+Persistable.swift in Sources */,
+				B36B72422498527A009A7E4A /* MKMapView+Additions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +476,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CashUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -292,6 +501,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CashUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

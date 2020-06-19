@@ -1,10 +1,3 @@
-//
-//  CashUI.h
-//  CashUI
-//
-//  Created by Giancarlo Pacheco on 6/15/20.
-//  Copyright © 2020 Giancarlo Pacheco. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 
