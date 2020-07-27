@@ -22,7 +22,11 @@ public class MenuViewController: UIViewController {
     required init() {
         super.init(nibName: "MenuView", bundle: Bundle.module)
     }
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "ATM Cash Redemption"
