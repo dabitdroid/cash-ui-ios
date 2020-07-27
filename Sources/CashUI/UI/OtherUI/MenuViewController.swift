@@ -18,6 +18,10 @@ public class MenuViewController: UIViewController {
 
     private var activityViewController: ActivityViewController?
     var cellHeights: [CGFloat] = []
+    
+    required init() {
+        super.init(nibName: "MenuView", bundle: Bundle.module)
+    }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
