@@ -14,17 +14,21 @@ It is an approach to solve issues like:
 
 Right now the code that any wallet needs to implement is:
 
+Setup the packages:
+````
+CoreSessionManager.shared.start()
+CoreSessionManager.shared.delegate = self
+````
+
 To show the menu view (this view is the triggering point for all the flow)
 ````
-let bundle = Bundle.init(for: WACMenuViewController.self)
-let vc = WACMenuViewController(nibName: "WACMenuView", bundle: bundle)
+let vc = CashUI.MenuViewController()
 navigationController.pushViewController(vc, animated: true)
 ````
 
-
-Implementation of the WACSessionManagerDelegate is mandatory, as the framework needs the wallet's implementation to send coin. 
+Implementation of the SessionManagerDelegate is mandatory, as the framework needs the wallet's implementation to send coin. 
 ````
-extension AppDelegate: WACSessionManagerDelegate {
+extension AppDelegate: CoreSessionManagerDelegate {
     
     func sendCoin(amount: String, address: String, completion: @escaping (() -> Void)) {
         let applicationController = self.applicationController
@@ -42,8 +46,32 @@ extension AppDelegate: WACSessionManagerDelegate {
 Any other views can also be shown like
 ````
 func presentActivity() {
-    let bundle = Bundle.init(for: WACActivityViewController.self)
-    let vc = WACActivityViewController(nibName: "WACActivityView", bundle: bundle)
+    let vc = ActivityViewController()
     self.topViewController?.present(vc, animated: true, completion: nil)
 }
 ````
+
+The current version of the package does not allow Resources as the version of Swift used does not allow it. Once we move to Swift 5.3 all of the resources used but the package can be included within it. The list of Resources that need to be included in the wallet's UI are:
+
+XIB's
+````
+SendVerificationView.xib
+ActivityView.xib
+AtmLocationsView.xib
+VerifyCashCode.xib
+WithdrawalStatusView.xib
+ListView.xib
+ActivityTableViewCell.xib
+MenuView.xib
+AtmInfoView.xib
+````
+
+Images - As part of a .xcassets file
+````
+atmGrey
+atmWhite
+Close
+Help
+````
+
+Other Resources (like Strings) may also need to be included
