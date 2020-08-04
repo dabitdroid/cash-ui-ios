@@ -23,8 +23,9 @@ public class MenuViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    required public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        let bundle = Bundle.init(for: MenuViewController.self)
+        super.init(nibName: "MenuView", bundle: bundle)
     }
     
     public override func viewDidLoad() {
