@@ -10,7 +10,8 @@ let package = Package(
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "CashUI",
-            targets: ["CashUI"]),
+            targets: ["CashUI"]
+        ),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -21,9 +22,12 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "CashUI",
-            dependencies: ["CashCore"]),
+            dependencies: ["CashCore"],
+            exclude: ["SampleApp"]
+        ),
         .testTarget(
             name: "CashUITests",
-            dependencies: ["CashUI"]),
+            dependencies: ["CashUI"]
+        ),
     ]
 )
