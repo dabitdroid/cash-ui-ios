@@ -50,7 +50,8 @@ class ActionViewController: UIViewController {
     }
     
     public func addCloseButton() {
-        closeButton = UIButton.icon(image: #imageLiteral(resourceName: "Close"), accessibilityLabel: "Close")
+        let image = UIImage(named: "Close", in: .module, compatibleWith: nil)
+        closeButton = UIButton.icon(image: image!, accessibilityLabel: "Close")
         self.view.addSubview(closeButton)
         closeButton.constrain([
             closeButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
@@ -63,7 +64,8 @@ class ActionViewController: UIViewController {
     }
     
     public func addInfoButton() {
-        infoButton = UIButton.icon(image:#imageLiteral(resourceName: "Faq"), accessibilityLabel: "Info")
+        let image = UIImage(named: "Help", in: .module, compatibleWith: nil)
+        infoButton = UIButton.icon(image:image!, accessibilityLabel: "Info")
         self.view.addSubview(infoButton)
         infoButton.constrain([
             infoButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),

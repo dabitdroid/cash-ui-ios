@@ -150,10 +150,10 @@ extension MapViewController: MKMapViewDelegate {
                 annotationView = AtmAnnotationView(annotation: annotation, reuseIdentifier: kAtmAnnotationViewReusableIdentifier)
                 let annot = annotation as! AtmAnnotation
                 if (annot.atm.redemption!.boolValue) {
-                    annotationView?.image = UIImage(named: "atmWhite")
+                    annotationView?.image = UIImage(named: "atmWhite", in: .module, compatibleWith: nil)
                 }
                 else {
-                    annotationView?.image = UIImage(named: "atmGrey")
+                    annotationView?.image = UIImage(named: "atmGrey", in: .module, compatibleWith: nil)
                 }
                 (annotationView as! AtmAnnotationView).atmMarkerAnnotationViewDelegate = self
             } else {

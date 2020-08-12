@@ -102,7 +102,8 @@ extension ActivityViewController: UITableViewDataSource, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let transaction = transactions[indexPath.row]
 
-        let bundle = Bundle.init(for: WithdrawalStatusViewController.self)
+//        let bundle = Bundle.init(for: WithdrawalStatusViewController.self)
+        let bundle = Bundle.module
         let withdrawalStatusVC = WithdrawalStatusViewController.init(nibName: "WithdrawalStatusView", bundle: bundle)
         withdrawalStatusVC.transaction = transaction
         self.present(withdrawalStatusVC, animated: true, completion: nil)

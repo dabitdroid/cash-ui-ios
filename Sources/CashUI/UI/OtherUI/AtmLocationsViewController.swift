@@ -44,7 +44,8 @@ class AtmLocationsViewController: UIViewController {
     }()
     
     private lazy var listVC: ListViewController = {
-        let bundle = Bundle.init(for: ListViewController.self)
+//        let bundle = Bundle.init(for: ListViewController.self)
+        let bundle = Bundle.module
         var viewController = ListViewController.init(nibName: "ListView", bundle: bundle)
         return viewController
     }()
@@ -130,13 +131,15 @@ class AtmLocationsViewController: UIViewController {
     }
     
     func addSendVerificationView() {
-        let bundle = Bundle.init(for: SendVerificationCodeViewController.self)
+//        let bundle = Bundle.init(for: SendVerificationCodeViewController.self)
+        let bundle = Bundle.module
         sendVerificationVC = SendVerificationCodeViewController.init(nibName: "SendVerificationView", bundle: bundle)
         addSheetView(controller: sendVerificationVC!)
     }
     
     func addVerifyCashCodeView() {
-        let bundle = Bundle.init(for: VerifyCashCodeViewController.self)
+//        let bundle = Bundle.init(for: VerifyCashCodeViewController.self)
+        let bundle = Bundle.module
         verifyCashCodeVC = VerifyCashCodeViewController.init(nibName: "VerifyCashCodeView", bundle: bundle)
         addSheetView(controller: verifyCashCodeVC!)
     }
@@ -171,7 +174,8 @@ extension AtmLocationsViewController: ActionProtocol {
             
             CoreTransactionManager.updateTransaction(status: .Awaiting, address: cashCode.address!)
             
-            let bundle = Bundle.init(for: WithdrawalStatusViewController.self)
+//            let bundle = Bundle.init(for: WithdrawalStatusViewController.self)
+            let bundle = Bundle.module
             let withdrawalStatusVC = WithdrawalStatusViewController.init(nibName: "WithdrawalStatusView", bundle: bundle)
             withdrawalStatusVC.transaction = CoreTransactionManager.getTransaction(for: cashCode.address!)
             self.present(withdrawalStatusVC, animated: true, completion: nil)

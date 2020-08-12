@@ -23,8 +23,10 @@ public class MenuViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    required public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        let bundle = Bundle.init(for: MenuViewController.self)
+        let bundle = Bundle.module
+        super.init(nibName: "MenuView", bundle: bundle)
     }
     
     public override func viewDidLoad() {
@@ -40,13 +42,15 @@ public class MenuViewController: UIViewController {
     }
     
     func setupActivityView() {
-        let bundle = Bundle.init(for: ActivityViewController.self)
+//        let bundle = Bundle.init(for: ActivityViewController.self)
+        let bundle = Bundle.module
         activityViewController = ActivityViewController(nibName: "ActivityView", bundle: bundle)
         containerView.addSubview(activityViewController!.view)
     }
 
     @IBAction func showMap(_ sender: Any) {
-        let bundle = Bundle.init(for: AtmLocationsViewController.self)
+//        let bundle = Bundle.init(for: AtmLocationsViewController.self)
+        let bundle = Bundle.module
         let vc = AtmLocationsViewController(nibName: "AtmLocationsView", bundle: bundle)
         navigationController?.pushViewController(vc, animated: true)
     }
