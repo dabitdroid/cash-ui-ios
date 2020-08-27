@@ -21,6 +21,8 @@ public class ActivityViewController: UIViewController, UIAdaptivePresentationCon
     }
     @IBOutlet open var tableView: UITableView!
     @IBOutlet open var navigationBar: UIView!
+    @IBOutlet weak var refreshButton: LoadingButton!
+
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +49,11 @@ public class ActivityViewController: UIViewController, UIAdaptivePresentationCon
         navigationBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
     
+    private func refresh(_ sender: Any) {
+        CoreTransactionManager.pollImmediately()
+    }
+
+    
     // MARK: Helpers
     private func setup() {
         self.view.backgroundColor = Theme.tertiaryBackground
@@ -68,13 +75,17 @@ public class ActivityViewController: UIViewController, UIAdaptivePresentationCon
         self.tableView.frame = frame
     }
     
-    @objc func refreshHandler() {
+    @IBAction func refreshHandler(_ sender: Any) {
+        self.refreshButton.showLoading()
         let deadlineTime = DispatchTime.now() + .seconds(1)
         DispatchQueue.main.asyncAfter(deadline: deadlineTime, execute: { [weak self] in
             if #available(iOS 10.0, *) {
+                self?.refresh(sender)
+                self?.refreshButton.hideLoading()
                 self?.tableView.refreshControl?.endRefreshing()
             }
             self?.tableView.reloadData()
+
         })
     }
     

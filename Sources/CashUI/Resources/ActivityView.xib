@@ -28,6 +28,20 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+<<<<<<< HEAD:breadwallet/JustCash/ActivityView.xib
+=======
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hux-b9-lXo" customClass="WACLoadingButton" customModule="coinsquare" customModuleProvider="target">
+                            <rect key="frame" x="354" y="8" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="Ohd-Tm-i8z"/>
+                                <constraint firstAttribute="height" constant="40" id="rGc-gQ-pM2"/>
+                            </constraints>
+                            <state key="normal" image="refresh"/>
+                            <connections>
+                                <action selector="refreshHandler:" destination="-1" eventType="touchUpInside" id="e49-vz-hAf"/>
+                            </connections>
+                        </button>
+>>>>>>> cni:breadwallet/WAC/WACActivityView.xib
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
@@ -38,7 +52,7 @@
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" id="Cla-XC-XPv">
                     <rect key="frame" x="0.0" y="64" width="414" height="798"/>
-                    <autoresizingMask key="autoresizingMask"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="AnO-39-VVJ"/>
@@ -56,4 +70,10 @@
             <point key="canvasLocation" x="69.565217391304358" y="120.53571428571428"/>
         </view>
     </objects>
+<<<<<<< HEAD:breadwallet/JustCash/ActivityView.xib
+=======
+    <resources>
+        <image name="refresh" width="40" height="40"/>
+    </resources>
+>>>>>>> cni:breadwallet/WAC/WACActivityView.xib
 </document>

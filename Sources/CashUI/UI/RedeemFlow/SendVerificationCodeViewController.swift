@@ -13,59 +13,48 @@ class SendVerificationCodeViewController: ActionViewController {
     
     // IBOutlets
     @IBOutlet weak var atmMachineTitleLabel: UILabel!
-    @IBOutlet weak var amountToWithdrawTextView: UITextField!
-    @IBOutlet weak var errorMessage: UILabel!
+    @IBOutlet weak var amountToWithdrawTextField: CustomTextField!
     @IBOutlet weak var infoAboutMachineLabel: UILabel!
-    @IBOutlet weak var phoneNumberTextView: UITextField!
-    @IBOutlet weak var firstNameTextView: UITextField!
-    @IBOutlet weak var lastNameTextView: UITextField!
+    @IBOutlet weak var phoneNumberTextField: CustomTextField!
+    @IBOutlet weak var firstNameTextField: CustomTextField!
+    @IBOutlet weak var lastNameTextField: CustomTextField!
     @IBOutlet weak var getAtmCodeButton: UIButton!
 
-    var validFields: Bool = false
-    var messageText: String = ""
+    var validFields: Bool {
+        return amountToWithdrawTextField.isValid && phoneNumberTextField.isValid && firstNameTextField.isValid && lastNameTextField.isValid
+    }
 
     static let defaultMinAmountLimit: Int = 20
     static let defaultMaxAmountLimit: Int = 300
     static let defaultAllowedBills: Int = 20
     
-    var minAmountLimit: Int = defaultMinAmountLimit
-    var maxAmountLimit: Int = defaultMaxAmountLimit
-    var allowedBills: Int = defaultAllowedBills
+    var minAmountLimit = defaultMinAmountLimit
+    var maxAmountLimit = defaultMaxAmountLimit
+    var allowedBills = defaultAllowedBills
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getAtmCodeButton.isEnabled = true
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        amountToWithdrawTextView.delegate = self
-        phoneNumberTextView.delegate = self
+        self.getAtmCodeButton.isEnabled = false
     }
     
     @IBAction func getverificationCodeAction(_ sender: Any) {
         self.view.endEditing(true)
-        validateFields()
-        if !validFields { return }
-        CoreSessionManager.shared.client!.sendVerificationCode(first: firstNameTextView.text!, surname: lastNameTextView.text!, phoneNumber: phoneNumberTextView.text!, email: "", result: { (result) in
+        
+        let firstName = firstNameTextField.text!
+        let lastName = self.lastNameTextField.text!
+        let phoneNumber = self.phoneNumberTextField.text!
+        CoreSessionManager.shared.client!.sendVerificationCode(first: firstName,
+                                                               surname: lastName,
+                                                               phoneNumber: phoneNumber,
+                                                               email: "",
+                                                               result: { (result) in
             self.view.hideAnimated()
-            self.actionCallback?.withdraw(amount: self.amountToWithdrawTextView.text!)
+            self.actionCallback?.withdraw(amount: self.amountToWithdrawTextField.text!)
             self.actionCallback?.actiondDidComplete(action: .sendVerificationCode)
             self.clearViews()
         })
-    }
-
-    private func addMessage(fieldName:String, message: String) {
-        var existingFieldName: String = ""
-        if messageText.isEmpty {
-            messageText.append("\(fieldName) ")
-            existingFieldName = fieldName
-        } else if fieldName == existingFieldName {
-            messageText.append("; ")
-        } else {
-            messageText.append("\n \(fieldName) ")
-            existingFieldName = fieldName
-        }
-        messageText.append(message)
+        
+        saveUserInfo(firstName: firstName, lastName: lastName, phoneNumber: phoneNumber)
     }
 
     public func setAtmInfo(_ atm: CashCore.AtmMachine) {
@@ -73,138 +62,81 @@ class SendVerificationCodeViewController: ActionViewController {
 //                                         atm: atm)
 //        CoreTransactionManager.shared.store(transaction)
         
-        self.setEditLimits(atm: atm)
+        var value = (atm.min! as NSString).integerValue
+        minAmountLimit = value > 0 ? value : SendVerificationCodeViewController.defaultMinAmountLimit
+        value = (atm.max! as NSString).integerValue
+        maxAmountLimit = value > 0 ? value : SendVerificationCodeViewController.defaultMaxAmountLimit
+        value = (atm.bills! as NSString).integerValue
+        allowedBills = value > 0 ? value : SendVerificationCodeViewController.defaultAllowedBills
+        
         self.atmMachineTitleLabel.text = atm.addressDesc!
         self.atmMachineTitleLabel.setNeedsDisplay()
-        self.infoAboutMachineLabel.text = "Min $\(minAmountLimit), Max $\(maxAmountLimit). Multiple of $\(allowedBills)"
+        self.infoAboutMachineLabel.text = "Min $\(String(describing: minAmountLimit)), Max $\(String(describing: maxAmountLimit)). Multiple of $\(String(describing: allowedBills))"
+
         self.infoAboutMachineLabel.setNeedsDisplay()
         self.listenForKeyboard = true
+        
+        populateUserInfo()
     }
 
     override public func clearViews() {
         super.clearViews()
-        self.amountToWithdrawTextView.text = ""
-        self.errorMessage.text = ""
+        self.amountToWithdrawTextField.text = ""
         self.infoAboutMachineLabel.text = ""
-        self.phoneNumberTextView.text = ""
-        self.firstNameTextView.text = ""
-        self.lastNameTextView.text = ""
+        self.phoneNumberTextField.text = ""
+        self.firstNameTextField.text = ""
+        self.lastNameTextField.text = ""
         self.view.setNeedsDisplay()
     }
 
-    @IBAction func textFieldEditingDidChange(_ sender: Any) {
-        if errorMessage.text != "" {
-            errorMessage.text = ""
-            errorMessage.setNeedsDisplay()
+    @IBAction func textFieldEditingDidChange(_ textField: UITextField) {
+        let text = textField.text!
+        switch textField {
+        case amountToWithdrawTextField:
+            if let errorMessage = text.validateAmount(lowerBound: minAmountLimit, upperBound: maxAmountLimit, allowedBills: allowedBills) {
+                amountToWithdrawTextField.errorText = errorMessage
+            }
+        case phoneNumberTextField:
+            if let errorMessage = text.validatePhoneNumber() {
+                phoneNumberTextField.errorText = errorMessage
+            }
+        case firstNameTextField:
+            if let errorMessage = text.validateName() {
+                firstNameTextField.errorText = errorMessage
+            }
+        case lastNameTextField:
+            if let errorMessage = text.validateName() {
+                lastNameTextField.errorText = errorMessage
+            }
+        default: break
         }
-    }
-}
-
-extension SendVerificationCodeViewController : UITextFieldDelegate {
-
-    private func textFieldSholdEndEditing(_ sender: Any) {
-        validateFields()
-    }
-
-}
-
-// MARK: validation
-extension SendVerificationCodeViewController {
-    private func validateFields() {
-        messageText = ""
-        let amountValid = validateAmount(amountView: self.amountToWithdrawTextView)
-        let phoneValid = self.phoneNumberTextView.text?.isValidPhoneNumber
-        _ = validateNames(firstNameView: self.firstNameTextView, lastNameView: self.lastNameTextView)
-        if phoneValid! && amountValid {
-            self.validFields = true
-            self.errorMessage.text = ""
+        
+        if validFields {
+            getAtmCodeButton.isEnabled = true
         } else {
-            self.validFields = false
-            self.errorMessage.text = messageText
+            getAtmCodeButton.isEnabled = false
         }
-        errorMessage.setNeedsDisplay()
     }
+}
 
-    public func validateAmount(amountView: UITextField) -> Bool {
-        if amountView.text.isNilOrEmpty {
-            addMessage(fieldName:"Amount", message: "is required")
-            return false
-        }
+extension SendVerificationCodeViewController {
 
-        let amount:Int? = Int(amountView.text!)
-        if amount == nil {
-            addMessage(fieldName:"Amount", message: "should be numeric")
-            return false
-        }
-
-        let validRange = amount! >= minAmountLimit && amount! <= maxAmountLimit
-        if !validRange {
-            addMessage(fieldName: "Amount", message: "should be between \(minAmountLimit) and \(maxAmountLimit)")
-        }
-
-        let validMultiple = isMultipleOf(amount: amount!, multipleOf: allowedBills)
-        if !validMultiple {
-            addMessage(fieldName:"Amount", message: "should be a multiple of \(allowedBills) bills")
-        }
-
-        return validRange && validMultiple
-    }
-
-    private func validateNames(firstNameView: UITextField, lastNameView: UITextField) -> Bool {
-        var firstNameValid:Bool = true
-        var lastNameValid:Bool = true
-        if firstNameTextView.text.isNilOrEmpty {
-            addMessage(fieldName:"First Name", message: "should be entered")
-            firstNameValid = false
-        }
-        if lastNameView.text.isNilOrEmpty {
-            addMessage(fieldName:"Last Name", message: "should be entered")
-            lastNameValid = false
-        }
-        return firstNameValid && lastNameValid
-    }
-
-    private func isMultipleOf(amount: Int, multipleOf: Int ) -> Bool {
-        // TODO: support multiple bills
-        return amount % multipleOf == 0
+    private func populateUserInfo() {
+        do {
+            let storedUser: CoreUser? = try UserDefaults.standard.getUser()
+            if let user = storedUser {
+                firstNameTextField.text = user.firstName
+                lastNameTextField.text = user.lastName
+                phoneNumberTextField.text = user.phoneNumber
+            }
+        } catch {}
     }
     
-    private func setEditLimits(atm: CashCore.AtmMachine) {
-        var atmMinimum: Int?
-        if atm.min.isNilOrEmpty {
-            atmMinimum = SendVerificationCodeViewController.defaultMinAmountLimit
-        } else {
-            let atmMinimumDouble:Double? = Double(atm.min!)
-            if atmMinimumDouble != nil {
-                atmMinimum = Int(atmMinimumDouble!)
-            }
-            if atmMinimum == nil { atmMinimum = SendVerificationCodeViewController.defaultMinAmountLimit }
-        }
-        self.minAmountLimit = atmMinimum!
-
-        var atmMaximum: Int?
-        if atm.max.isNilOrEmpty {
-            atmMaximum = SendVerificationCodeViewController.defaultMaxAmountLimit
-        } else {
-            let atmMaximumDouble:Double? = Double(atm.max!)
-            if atmMaximumDouble != nil {
-                atmMaximum = Int(atmMaximumDouble!)
-            }
-            if atmMaximum == nil { atmMaximum = SendVerificationCodeViewController.defaultMaxAmountLimit }
-        }
-        self.maxAmountLimit = atmMaximum!
-
-        var atmBills: Int?
-        if atm.bills.isNilOrEmpty {
-            atmBills = SendVerificationCodeViewController.defaultAllowedBills
-        } else {
-            let atmBillsDouble:Double? = Double(atm.bills!)
-            if atmBillsDouble != nil {
-                atmBills = Int(atmBillsDouble!)
-            }
-            if atmBills == nil { atmBills = SendVerificationCodeViewController.defaultAllowedBills }
-        }
-        self.allowedBills = atmBills!
+    private func saveUserInfo(firstName: String, lastName: String, phoneNumber: String) {
+        let user = CoreUser(firstName: firstName, lastName: lastName, phone: phoneNumber)
+        do {
+            try UserDefaults.standard.setUser(user)
+        } catch {}
     }
-
+    
 }

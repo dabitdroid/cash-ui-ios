@@ -7,6 +7,8 @@ protocol Persistable {
     func getAllObjects() throws -> [CoreTransaction]
     func updateObject(_ object: CoreTransaction) throws
     func removeAllObjects()
+    func setUser<CoreUser>(_ user: CoreUser) throws where CoreUser: Encodable
+    func getUser<CoreUser>() throws -> CoreUser where CoreUser: Decodable
 }
 
 enum PersistableError: String, LocalizedError {
@@ -24,7 +26,9 @@ extension UserDefaults: Persistable {
     static let defaultKey = Keys.Hello.rawValue
     
     enum Keys: String, CaseIterable {
+        case Transactions
         case Hello
+        case User
     }
     
     func removeAllObjects() {
@@ -77,6 +81,27 @@ extension UserDefaults: Persistable {
             set(data, forKey: UserDefaults.defaultKey)
         } catch {
             throw PersistableError.unableToEncode
+        }
+    }
+    
+    func setUser<CoreUser>(_ user: CoreUser) throws where CoreUser: Encodable {
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(user)
+            set(data, forKey: Keys.User.rawValue)
+        } catch {
+            throw PersistableError.unableToEncode
+        }
+    }
+    
+    func getUser<CoreUser>() throws -> CoreUser where CoreUser: Decodable {
+        guard let data = data(forKey: Keys.User.rawValue) else { throw PersistableError.noValue }
+        let decoder = JSONDecoder()
+        do {
+            let object = try decoder.decode(CoreUser.self, from: data)
+            return object
+        } catch {
+            throw PersistableError.unableToDecode
         }
     }
 }
