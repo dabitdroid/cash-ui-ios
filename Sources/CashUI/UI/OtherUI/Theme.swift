@@ -34,7 +34,7 @@ class Theme {
     }
     
     // returns a color with the given enum
-    private static func color(_ hex: ColorHex) -> UIColor {
+    public static func color(_ hex: ColorHex) -> UIColor {
         return UIColor.fromHex(hex.rawValue)
     }
 }
