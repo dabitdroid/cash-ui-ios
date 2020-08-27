@@ -64,7 +64,7 @@ class ActionViewController: UIViewController {
     }
     
     public func addInfoButton() {
-        let image = UIImage(named: "Help")
+        let image = UIImage(named: "Faq")
         infoButton = UIButton.icon(image:image!, accessibilityLabel: "Info")
         self.view.addSubview(infoButton)
         infoButton.constrain([
