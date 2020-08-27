@@ -50,6 +50,9 @@ open class CoreTransactionManager {
                     try UserDefaults.standard.setObjects(allObjects)
                 }
             }
+            if allObjects.count == 0 {
+                try UserDefaults.standard.setObject(transaction)
+            }
         }
         catch {}
     }
