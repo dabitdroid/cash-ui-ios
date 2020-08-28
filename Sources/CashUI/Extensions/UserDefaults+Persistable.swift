@@ -23,7 +23,7 @@ enum PersistableError: String, LocalizedError {
 
 extension UserDefaults: Persistable {
     
-    static let defaultKey = Keys.Hello.rawValue
+    static let defaultKey = Keys.Transactions.rawValue
     
     enum Keys: String, CaseIterable {
         case Transactions
@@ -75,6 +75,9 @@ extension UserDefaults: Persistable {
                 let newTransaction = convertTransaction(transaction)
                 newObjects.append(newTransaction)
             }
+            if newObjects.count > 0 {
+                removeObject(forKey: Keys.Hello.rawValue)
+            }
             return newObjects
         } catch {
             return []
@@ -82,16 +85,18 @@ extension UserDefaults: Persistable {
     }
     
     func getAllObjects() throws -> [CoreTransaction] {
-        guard let data = value(forKey: UserDefaults.defaultKey) as? Data else { return [] }
-        let decoder = JSONDecoder()
-        do {
-            let objects = try decoder.decode([CoreTransaction].self, from: data)
-            return objects
-        } catch {
-            if (!data.isEmpty) {
-                return migrateTransactions()
+        let oldData = value(forKey: Keys.Hello.rawValue) as? Data
+        if (oldData?.isEmpty) {
+            guard let data = value(forKey: UserDefaults.defaultKey) as? Data else { return [] }
+            let decoder = JSONDecoder()
+            do {
+                let objects = try decoder.decode([CoreTransaction].self, from: data)
+                return objects
+            } catch {
+                throw PersistableError.unableToDecode
             }
-            throw PersistableError.unableToDecode
+        } else {
+            return migrateTransactions()
         }
     }
     
