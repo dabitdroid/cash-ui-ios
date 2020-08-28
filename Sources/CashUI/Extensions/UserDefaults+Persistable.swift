@@ -85,8 +85,7 @@ extension UserDefaults: Persistable {
     }
     
     func getAllObjects() throws -> [CoreTransaction] {
-        let oldData = value(forKey: Keys.Hello.rawValue) as? Data
-        if (oldData?.isEmpty) {
+        if let _ = value(forKey: Keys.Hello.rawValue) as? Data {
             guard let data = value(forKey: UserDefaults.defaultKey) as? Data else { return [] }
             let decoder = JSONDecoder()
             do {
