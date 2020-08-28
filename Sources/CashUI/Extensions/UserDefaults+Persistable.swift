@@ -65,7 +65,7 @@ extension UserDefaults: Persistable {
     }
     
     func migrateTransactions() -> [CoreTransaction]  {
-        guard let data = value(forKey: UserDefaults.defaultKey) as? Data else { return [] }
+        guard let data = value(forKey: Keys.Hello.rawValue) as? Data else { return [] }
         let decoder = JSONDecoder()
         do {
             let objects = try decoder.decode([WACTransaction].self, from: data)
