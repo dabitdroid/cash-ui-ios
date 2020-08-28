@@ -3,7 +3,6 @@ import CashCore
 
 public struct WACTransaction: CustomStringConvertible, Codable, Equatable {
     
-    public var id: String
     public var timestamp: Double
     public var status: CoreTransactionStatus
     public var atm: AtmMachine?
@@ -16,7 +15,6 @@ public struct WACTransaction: CustomStringConvertible, Codable, Equatable {
     }
     
     public init(status: CoreTransactionStatus, atm: AtmMachine? = nil, code: CashCode? = nil) {
-        self.id = UUID().uuidString
         self.timestamp = Date().timeIntervalSince1970
         self.status = status
         self.atm = atm
