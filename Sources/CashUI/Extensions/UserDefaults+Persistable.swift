@@ -77,7 +77,7 @@ extension UserDefaults: Persistable {
             }
             if newObjects.count > 0 {
                 removeObject(forKey: Keys.Hello.rawValue)
-                setObjects(newObjects)
+                try setObjects(newObjects)
             }
             return newObjects
         } catch {
