@@ -58,7 +58,7 @@ public struct CoreTransaction: CustomStringConvertible, Codable, Equatable {
         // Colors have to be 6 characters long
         switch status {
         case .VerifyPending:
-            return "a65e93"
+            return "f2a900"
         case .SendPending:
             return "f2a900"
         case .Awaiting:
@@ -66,7 +66,7 @@ public struct CoreTransaction: CustomStringConvertible, Codable, Equatable {
         case .FundedNotConfirmed:
             return "a6955e"
         case .Funded:
-            return "5ea671"
+            return "85bb65"
         case .Withdrawn:
             return "ff5193"
         case .Cancelled:
