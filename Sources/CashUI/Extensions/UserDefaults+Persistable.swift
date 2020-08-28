@@ -57,6 +57,30 @@ extension UserDefaults: Persistable {
         }
     }
     
+    func convertTransaction(_ transaction: WACTransaction) -> CoreTransaction {
+        var migratedTransaction = CoreTransaction(status: transaction.status, atm: transaction.atm, code: transaction.code)
+        migratedTransaction.timestamp = transaction.timestamp
+        migratedTransaction.pCode = transaction.pCode
+        return migratedTransaction
+    }
+    
+    func migrateTransactions() -> [CoreTransaction]  {
+        guard let data = value(forKey: UserDefaults.defaultKey) as? Data else { return [] }
+        let decoder = JSONDecoder()
+        do {
+            let objects = try decoder.decode([WACTransaction].self, from: data)
+            
+            var newObjects: [CoreTransaction] = []
+            for transaction in objects {
+                let newTransaction = convertTransaction(transaction)
+                newObjects.append(newTransaction)
+            }
+            return newObjects
+        } catch {
+            return []
+        }
+    }
+    
     func getAllObjects() throws -> [CoreTransaction] {
         guard let data = value(forKey: UserDefaults.defaultKey) as? Data else { return [] }
         let decoder = JSONDecoder()
@@ -64,6 +88,9 @@ extension UserDefaults: Persistable {
             let objects = try decoder.decode([CoreTransaction].self, from: data)
             return objects
         } catch {
+            if (!data.isEmpty) {
+                return migrateTransactions()
+            }
             throw PersistableError.unableToDecode
         }
     }
