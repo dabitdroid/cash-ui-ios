@@ -51,7 +51,7 @@ public struct CoreTransaction: CustomStringConvertible, Codable, Equatable {
     }
     
     public var description: String {
-        return "\(timestamp) = \(status.rawValue)"
+        return "\(id) - \(timestamp) = \(status.rawValue)"
     }
 
     private func color(for status:CoreTransactionStatus) -> String {
