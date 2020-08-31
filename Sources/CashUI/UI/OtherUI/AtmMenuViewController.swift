@@ -11,7 +11,7 @@
 import UIKit
 import CashCore
 
-public class MenuViewController: UIViewController {
+public class AtmMenuViewController: UIViewController {
 
     @IBOutlet weak var labelMainTitle: UILabel!
     @IBOutlet weak var containerView: UIView!
@@ -24,7 +24,7 @@ public class MenuViewController: UIViewController {
     }
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        let bundle = Bundle.init(for: MenuViewController.self)
+        let bundle = Bundle.init(for: AtmMenuViewController.self)
         super.init(nibName: "MenuView", bundle: bundle)
     }
     
