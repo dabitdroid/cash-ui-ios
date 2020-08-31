@@ -19,13 +19,13 @@ public class AtmMenuViewController: UIViewController {
     private var activityViewController: ActivityViewController?
     var cellHeights: [CGFloat] = []
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         let bundle = Bundle.init(for: AtmMenuViewController.self)
         super.init(nibName: "MenuView", bundle: bundle)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
     
     public override func viewDidLoad() {

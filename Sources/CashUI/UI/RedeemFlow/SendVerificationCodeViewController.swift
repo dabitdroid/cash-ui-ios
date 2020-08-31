@@ -37,7 +37,7 @@ class SendVerificationCodeViewController: ActionViewController {
         self.getAtmCodeButton.isEnabled = false
     }
     
-    @IBAction func getverificationCodeAction(_ sender: Any) {
+    @IBAction func getVerificationCodeAction(_ sender: UIButton) {
         self.view.endEditing(true)
         
         let firstName = firstNameTextField.text!
