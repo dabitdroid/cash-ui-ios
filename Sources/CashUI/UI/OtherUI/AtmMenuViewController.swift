@@ -20,7 +20,7 @@ public class AtmMenuViewController: UIViewController {
     var cellHeights: [CGFloat] = []
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
