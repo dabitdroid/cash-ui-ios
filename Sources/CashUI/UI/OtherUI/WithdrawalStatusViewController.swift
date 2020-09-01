@@ -46,7 +46,7 @@ class WithdrawalStatusViewController: ActionViewController {
         atmMapView.delegate = self
         
         if #available(iOS 13.0, *) {
-            atmMapView.overrideUserInterfaceStyle = .dark
+            atmMapView.overrideUserInterfaceStyle = .light
         }
         
         if let atm = transaction.atm, let latitude = atm.latitude,

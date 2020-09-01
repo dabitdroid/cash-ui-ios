@@ -88,7 +88,7 @@ class MapViewController: UIViewController {
         mapATMs.isZoomEnabled = true
 
         if #available(iOS 13.0, *) {
-            mapATMs.overrideUserInterfaceStyle = .dark
+            mapATMs.overrideUserInterfaceStyle = .light
         }
         mapATMs.showsScale = true
         mapATMs.showsCompass = true
