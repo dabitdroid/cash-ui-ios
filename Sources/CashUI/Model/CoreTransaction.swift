@@ -9,7 +9,7 @@ public enum CoreTransactionStatus: String, Codable {
     case FundedNotConfirmed = "Unconfirmed"
     case Funded = "Funded" // It could take some time to be confirmed
     case Withdrawn = "Used"
-    case Cancelled = "Expired"
+    case Cancelled = "Cancelled"
 
     static func transactionStatus(from status: CodeStatus) -> CoreTransactionStatus {
         switch status {
