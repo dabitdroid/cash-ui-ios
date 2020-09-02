@@ -45,10 +45,6 @@ class WithdrawalStatusViewController: ActionViewController {
                          forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         atmMapView.delegate = self
         
-        if #available(iOS 13.0, *) {
-            atmMapView.overrideUserInterfaceStyle = .light
-        }
-        
         if let atm = transaction.atm, let latitude = atm.latitude,
             let longitude = atm.longitude {
             let atmLocation = CLLocation(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
