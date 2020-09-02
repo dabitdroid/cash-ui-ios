@@ -40,7 +40,7 @@ class MapViewController: UIViewController {
         var _locationManager = CLLocationManager()
         _locationManager.delegate = self
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest
-
+        
         return _locationManager
     }()
 
@@ -50,23 +50,23 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         addSubviews()
         setupMapView()
-
+        
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         checkLocationAuthorizationStatus()
         addConstraints()
     }
-
+    
     func checkLocationAuthorizationStatus() {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             mapATMs.showsUserLocation = true
         }
     }
-
+    
     func addSubviews() {
         view.backgroundColor = .clear
         view.addSubview(mapATMs)
@@ -82,19 +82,22 @@ class MapViewController: UIViewController {
         ])
 
     }
-
+    
     func setupMapView() {
         mapATMs.isScrollEnabled = true
         mapATMs.isZoomEnabled = true
 
+        if #available(iOS 13.0, *) {
+            mapATMs.overrideUserInterfaceStyle = .light
+        }
         mapATMs.showsScale = true
         mapATMs.showsCompass = true
-
+        
         mapATMs.register(AtmAnnotationView.self,
                          forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         mapATMs.delegate = self
     }
-
+    
     @objc func containerViewTapped(_ sender: Any) {
         view.endEditing(true)
         let parent = self.parent as! AtmLocationsViewController
@@ -128,21 +131,21 @@ extension MapViewController: CLLocationManagerDelegate {
         mapATMs.centerToLocation(kHoustonLocation, regionRadius: kLocationDistance)
         locationManager.stopUpdatingLocation()
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
-
+    
 }
 
 extension MapViewController: MKMapViewDelegate {
-
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-
+            
             if annotation is MKUserLocation { return nil }
-
+            
             var annotationView = mapATMs.dequeueReusableAnnotationView(withIdentifier: kAtmAnnotationViewReusableIdentifier)
-
+            
             if annotationView == nil {
                 annotationView = AtmAnnotationView(annotation: annotation, reuseIdentifier: kAtmAnnotationViewReusableIdentifier)
                 let annot = annotation as! AtmAnnotation
@@ -156,7 +159,7 @@ extension MapViewController: MKMapViewDelegate {
             } else {
                 annotationView!.annotation = annotation
             }
-
+            
             return annotationView
         }
 }
