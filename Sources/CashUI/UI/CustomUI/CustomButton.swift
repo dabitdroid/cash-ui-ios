@@ -5,6 +5,24 @@
 import UIKit
 
 class CustomButton: UIButton {
+    
+    @IBInspectable var borderColor: UIColor = .clear {
+        didSet {
+            layer.borderColor = borderColor.withAlphaComponent(0.5).cgColor
+        }
+    }
+
+    @IBInspectable var borderWidth: CGFloat = 0 {
+        didSet {
+            layer.borderWidth = borderWidth
+        }
+    }
+
+    @IBInspectable var cornerRadius: CGFloat = 0 {
+        didSet {
+            layer.cornerRadius = cornerRadius
+        }
+    }
 
     override open var isEnabled: Bool {
         didSet {

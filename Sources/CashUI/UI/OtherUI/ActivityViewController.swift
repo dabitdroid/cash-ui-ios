@@ -22,7 +22,14 @@ public class ActivityViewController: UIViewController, UIAdaptivePresentationCon
     @IBOutlet open var tableView: UITableView!
     @IBOutlet open var navigationBar: UIView!
     @IBOutlet weak var refreshButton: LoadingButton!
-
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:#selector(refreshHandler),
+                                 for: UIControl.Event.valueChanged)
+        refreshControl.tintColor = UIColor.white
+        
+        return refreshControl
+    }()
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,13 +37,14 @@ public class ActivityViewController: UIViewController, UIAdaptivePresentationCon
         setupNavigationBar();
         
         NotificationCenter.default.addObserver(self, selector: #selector(transactionDidUpdate), name: .CoreTransactionDidChange, object: nil)
+        
+        refreshHandler(tableView as Any)
     }
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // TODO table view needs refreshing after any presentation controller dismisses
-        CoreTransactionManager.pollImmediately()
-        tableView.reloadData()
+        refreshHandler(tableView as Any)
     }
     
     deinit {
@@ -62,10 +70,7 @@ public class ActivityViewController: UIViewController, UIAdaptivePresentationCon
         tableView.backgroundColor = Theme.tertiaryBackground
         tableView.estimatedRowHeight = 199
         tableView.rowHeight = UITableView.automaticDimension
-        if #available(iOS 10.0, *) {
-            tableView.refreshControl = UIRefreshControl()
-            tableView.refreshControl?.addTarget(self, action: #selector(refreshHandler), for: .valueChanged)
-        }
+        tableView.refreshControl = refreshControl
     }
     
     public override func viewDidLayoutSubviews() {
@@ -82,7 +87,7 @@ public class ActivityViewController: UIViewController, UIAdaptivePresentationCon
             if #available(iOS 10.0, *) {
                 self?.refresh(sender)
                 self?.refreshButton.hideLoading()
-                self?.tableView.refreshControl?.endRefreshing()
+                self?.refreshControl.endRefreshing()
             }
             self?.tableView.reloadData()
 
