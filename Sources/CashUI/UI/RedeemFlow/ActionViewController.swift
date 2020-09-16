@@ -25,7 +25,7 @@ class ActionViewController: UIViewController {
         
         roundViews()
         addCloseButton()
-        addInfoButton()
+//        addInfoButton()
     }
     
     func roundViews() {
