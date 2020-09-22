@@ -161,7 +161,8 @@ extension AtmLocationsViewController: UISearchBarDelegate {
 extension AtmLocationsViewController: ActionProtocol {
     
     func sendCashCode(_ cashCode: CashCode) {
-        // Overriding the server state .AWAITING to be .SendPending in the UI so the user does not have to perform the whole flow. The Server and the UI will be at sync once the user sends successfully.
+        // Overriding the server state .AWAITING to be .SendPending in the UI so the user does not have to perform the whole flow.
+        // The Server and the UI will be at sync once the user sends successfully.
         // NOTE: send can be performed somewhere else. For that case, the server sync will update the UI
         CoreTransactionManager.updateTransaction(status: .SendPending, address: cashCode.address!, code: cashCode.secureCode)
         
@@ -180,13 +181,16 @@ extension AtmLocationsViewController: ActionProtocol {
     }
     
     func withdrawal(requested cashCode: CashCode) {
-        showAlert(title: "Withdrawal Requested", message: "Please send the amount of \(String(describing: cashCode.btcAmount!)) BTC to the ATM", buttonLabel: ActionStrings.send.rawValue, /*cancelButtonLabel: ActionStrings.details.rawValue,*/ completion: { (action) in
-            if (action.title == ActionStrings.send.rawValue) {
-                self.sendCashCode(cashCode)
-            }
-            else {
-                print("Show Details view")
-            }
+        showAlert(title: "Withdrawal Requested",
+                  message: "Please send the amount of \(String(describing: cashCode.btcAmount!)) BTC to the ATM",
+            buttonLabel: ActionStrings.send.rawValue,
+            completion: { (action) in
+                if (action.title == ActionStrings.send.rawValue) {
+                    self.sendCashCode(cashCode)
+                }
+                else {
+                    print("Show Details view")
+                }
         })
     }
     
