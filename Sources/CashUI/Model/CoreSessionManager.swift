@@ -33,8 +33,8 @@ extension CoreSessionManager: SessionCallback {
         NotificationCenter.default.post(name: .CoreSessionDidStart, object: nil)
     }
 
-    public func onError(_ errorMessage: CashCoreError?) {
-        NotificationCenter.default.post(name: .CoreSessionDidFail, object: nil)
+    public func onError(_ error: CashCoreError?) {
+        NotificationCenter.default.post(name: .CoreSessionDidFail, object: error)
     }
 
 }
