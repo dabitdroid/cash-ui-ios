@@ -232,7 +232,7 @@ open class CoreTransactionManager {
             case .Awaiting, .FundedNotConfirmed, .Funded:
                 CoreTransactionManager.poll(transaction)
             case  .Withdrawn, .Cancelled:
-                print("Don't change")
+                print("Transaction \(transaction.id) status \(transaction.status)")
             }
         }
     }
