@@ -62,13 +62,13 @@ public struct CoreTransaction: CustomStringConvertible, Codable, Equatable {
         case .SendPending:
             return "f2a900"
         case .Awaiting:
-            return "67cbb"
+            return "d6ad19"
         case .FundedNotConfirmed:
-            return "a6955e"
+            return "bbb232"
         case .Funded:
-            return "85bb65"
+            return "a0b64b"
         case .Withdrawn:
-            return "ff5193"
+            return "85BB65"
         case .Cancelled:
             return "5e6fa5"
         }

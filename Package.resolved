@@ -5,9 +5,9 @@
         "package": "CashCore",
         "repositoryURL": "https://github.com/atmcoin/cash-sdk-ios.git",
         "state": {
-          "branch": "feature/swiftPackage",
-          "revision": "012e93669c89809cd80a417973c9a391e18e4fce",
-          "version": null
+          "branch": null,
+          "revision": "a6f84c05e3806ef74e226a931cc57bf5f4585376",
+          "version": "4.0.0"
         }
       }
     ]

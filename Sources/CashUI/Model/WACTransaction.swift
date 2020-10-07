@@ -30,17 +30,17 @@ public struct WACTransaction: CustomStringConvertible, Codable, Equatable {
         // Colors have to be 6 characters long
         switch status {
         case .VerifyPending:
-            return "a65e93"
+            return "f2a900"
         case .SendPending:
             return "f2a900"
         case .Awaiting:
-            return "67cbb"
+            return "d6ad19"
         case .FundedNotConfirmed:
-            return "a6955e"
+            return "bbb232"
         case .Funded:
-            return "5ea671"
+            return "a0b64b"
         case .Withdrawn:
-            return "ff5193"
+            return "85BB65"
         case .Cancelled:
             return "5e6fa5"
         }
