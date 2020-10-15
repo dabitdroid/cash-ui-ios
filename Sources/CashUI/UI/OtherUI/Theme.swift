@@ -2,9 +2,9 @@
 import Foundation
 import UIKit
 
-class Theme {
+public class Theme {
     
-    enum ColorHex: String {
+    public enum ColorHex: String {
         case primaryBackground = "#1E1E1E"
         case secondaryBackground = "#292929"
         case tertiaryBackground = "292929" // enums dont accept duplicate values, so cheating them by having one with the hash (#) and the other one without

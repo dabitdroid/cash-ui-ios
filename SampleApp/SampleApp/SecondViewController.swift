@@ -9,11 +9,15 @@
 import UIKit
 import CashUI
 
-class SecondViewController: UITableViewController {
+class SecondViewController: UITableViewController, NavigationControllerProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        view.backgroundColor = Theme.color(.primaryBackground)
+        tableView.separatorColor = UIColor(white: 1, alpha: 0.5)
+        colorNavigationController(self.navigationController!)
     }
 
 
@@ -22,22 +26,27 @@ class SecondViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cellReuseIdentifier", for: indexPath)
+        cell.backgroundColor = .clear
         
         // set the text from the data model
-        cell.textLabel?.text = "support"
+        cell.textLabel?.textColor = .white
+        cell.textLabel?.text = indexPath.row == 0 ? "All Support Pages" : "Transaction Failed Topic"
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "SupportListStoryboard", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "SupportListViewController")
-        self.navigationController?.pushViewController(vc, animated: true)
+        if indexPath.row == 0 {
+            guard let vc = SupportManager.shared.supportCategories() else { return }
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            SupportManager.shared.presentSupportTopic(for: "TRANSACTION_FAILED", from: self.navigationController!)
+        }
     }
 }
 
