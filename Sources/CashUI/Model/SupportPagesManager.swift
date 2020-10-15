@@ -36,7 +36,7 @@ public class SupportManager: NavigationControllerProtocol {
         guard let vc = supportTopic(for: topicId) else { return }
         navigationController.addChild(vc)
         colorNavigationController(navigationController)
-        addCloseNavigationItem(vc)
+        addCloseBarButtonItem(vc, target: SupportManager.shared, action: #selector(SupportManager.shared.dismissController))
         controller.present(navigationController, animated: true, completion: nil)
     }
     
@@ -48,6 +48,6 @@ public class SupportManager: NavigationControllerProtocol {
     }
     
     @objc private func dismissController() {
-        navigationController.popViewController(animated: true)
+        navigationController.dismiss(animated: true)
     }
 }

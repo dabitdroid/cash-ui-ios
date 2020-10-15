@@ -3,7 +3,7 @@ import UIKit
 
 public protocol NavigationControllerProtocol {
     func colorNavigationController(_ navController: UINavigationController)
-    func addCloseNavigationItem(_ controller: UIViewController)
+    func addCloseBarButtonItem(_ controller: UIViewController, target: Any?, action: Selector)
 }
 
 extension NavigationControllerProtocol {
@@ -13,11 +13,12 @@ extension NavigationControllerProtocol {
         navController.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
-    public func addCloseNavigationItem(_ controller: UIViewController) {
+    public func addCloseBarButtonItem(_ controller: UIViewController, target: Any?, action: Selector) {
         guard let closeImage = UIImage(named: "Close") else { return }
         let closeButton = UIButton.icon(image: closeImage, accessibilityLabel: "Close")
         closeButton.tintColor = .white
         closeButton.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 40, height: 40))
+        closeButton.addTarget(target, action: action, for: .touchUpInside)
         let buttonItem = UIBarButtonItem(customView: closeButton)
         controller.navigationItem.rightBarButtonItem = buttonItem
     }
