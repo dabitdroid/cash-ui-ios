@@ -48,6 +48,7 @@ open class CoreTransactionManager {
                 else {
                     allObjects.append(transaction)
                     try UserDefaults.standard.setObjects(allObjects)
+                    return
                 }
             }
             if allObjects.count == 0 {
