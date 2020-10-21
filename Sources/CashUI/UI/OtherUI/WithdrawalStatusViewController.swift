@@ -15,7 +15,7 @@ class WithdrawalStatusViewController: ActionViewController {
     @IBOutlet weak var amountUSDLabel: UILabel!
     @IBOutlet weak var amountBTCLabel: UILabel!
     @IBOutlet weak var addressTitleLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var addressLabel: CopyableLabel!
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var qrCodeImageView: UIImageView!
@@ -92,7 +92,7 @@ class WithdrawalStatusViewController: ActionViewController {
         self.stateLabel.isHidden = false
         self.stateLabel.text = status.rawValue
         
-        self.redeemView.isHidden = false
+        self.redeemView.isHidden = true
         
         switch status {
         case .Awaiting, .FundedNotConfirmed:
@@ -103,9 +103,9 @@ class WithdrawalStatusViewController: ActionViewController {
         case .Funded:
             // Show Code to redeem
             self.stateLabel.isHidden = true
+            self.redeemView.isHidden = false
             break
         case .Withdrawn, .Cancelled, .VerifyPending:
-            self.redeemView.isHidden = true
             break
         case .SendPending:
             self.qrCodeImageView.isHidden = false
@@ -114,7 +114,6 @@ class WithdrawalStatusViewController: ActionViewController {
             self.sendButton.isHidden = false
             
             self.stateLabel.isHidden = true
-            self.redeemView.isHidden = true
             break
         }
     }
