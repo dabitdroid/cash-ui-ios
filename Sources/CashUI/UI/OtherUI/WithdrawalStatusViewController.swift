@@ -10,6 +10,8 @@ class WithdrawalStatusViewController: ActionViewController {
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var atmMapView: MKMapView!
     @IBOutlet weak var atmLocationDescription: UILabel!
+    @IBOutlet weak var atmStateLabel: UILabel!
+    @IBOutlet weak var atmStreetLabel: UILabel!
     @IBOutlet weak var amountUSDLabel: UILabel!
     @IBOutlet weak var amountBTCLabel: UILabel!
     @IBOutlet weak var addressTitleLabel: UILabel!
@@ -18,6 +20,8 @@ class WithdrawalStatusViewController: ActionViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var qrCodeImageView: UIImageView!
     @IBOutlet weak var redeemCodeLabel: UILabel!
+    @IBOutlet weak var redeemView: UIView!
+    @IBOutlet weak var stateLabel: UILabel!
     @IBOutlet weak var sendButton: UIButton!
     
     var transaction: CoreTransaction!
@@ -50,6 +54,13 @@ class WithdrawalStatusViewController: ActionViewController {
             let atmLocation = CLLocation(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
             atmMapView.centerToLocation(atmLocation)
             self.atmLocationDescription.text = transaction.atm?.addressDesc
+            if let addressString = AtmHelper.cityStateZip(for: atm) {
+                self.atmStateLabel.text = addressString
+            }
+            
+            if let street = atm.street {
+                self.atmStreetLabel.text = street
+            }
         }
         
         if let code = transaction.code {
@@ -59,7 +70,7 @@ class WithdrawalStatusViewController: ActionViewController {
             setQRCode(from:code.address!, amount:btcAmount)
         
             self.amountUSDLabel.text = "$\(usdAmount)"
-            self.amountBTCLabel.text = "\(btcAmount) BTC"
+            self.amountBTCLabel.text = "\(btcAmount)"
             self.addressLabel.text = code.address
         }
     }
@@ -73,34 +84,37 @@ class WithdrawalStatusViewController: ActionViewController {
     
     func updateStatus(_ status: CoreTransactionStatus) {
         self.qrCodeImageView.isHidden = true
-        self.redeemCodeLabel.isHidden = false
+        self.sendButton.isHidden = true
+        
         self.addressLabel.isHidden = true
         self.addressTitleLabel.isHidden = true
-        self.sendButton.isHidden = true
+        
+        self.stateLabel.isHidden = false
+        self.stateLabel.text = status.rawValue
+        
+        self.redeemView.isHidden = false
+        
         switch status {
         case .Awaiting, .FundedNotConfirmed:
             // To the server there is no difference
             self.addressLabel.isHidden = false
             self.addressTitleLabel.isHidden = false
-            self.redeemCodeLabel.text = "PROCESSING"
             break
         case .Funded:
             // Show Code to redeem
+            self.stateLabel.isHidden = true
             break
-        case .Withdrawn:
-            self.redeemCodeLabel.text = "WITHDRAWN"
-            break
-        case .Cancelled:
-            self.redeemCodeLabel.text = "CANCELLED"
-            break
-        case .VerifyPending:
+        case .Withdrawn, .Cancelled, .VerifyPending:
+            self.redeemView.isHidden = true
             break
         case .SendPending:
             self.qrCodeImageView.isHidden = false
-            self.redeemCodeLabel.isHidden = true
             self.addressLabel.isHidden = false
             self.addressTitleLabel.isHidden = false
             self.sendButton.isHidden = false
+            
+            self.stateLabel.isHidden = true
+            self.redeemView.isHidden = true
             break
         }
     }
@@ -136,23 +150,28 @@ class WithdrawalStatusViewController: ActionViewController {
             self.update()
         })
     }
+    
+    @IBAction func showMapDirections(_ sender: Any) {
+        guard let atm = transaction.atm else { return }
+        MapHelper.openMapActionSheet(for: atm, presentation: self)
+    }
 }
 
 extension WithdrawalStatusViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            
-            if annotation is MKUserLocation { return nil }
-            
-            var annotationView = atmMapView.dequeueReusableAnnotationView(withIdentifier: kAtmAnnotationViewReusableIdentifier)
-            
-            if annotationView == nil {
-                annotationView = AtmAnnotationView(annotation: annotation, reuseIdentifier: kAtmAnnotationViewReusableIdentifier)
-                annotationView?.image = UIImage(named: "atmWhite")
-            } else {
-                annotationView!.annotation = annotation
-            }
-            
-            return annotationView
+        
+        if annotation is MKUserLocation { return nil }
+        
+        var annotationView = atmMapView.dequeueReusableAnnotationView(withIdentifier: kAtmAnnotationViewReusableIdentifier)
+        
+        if annotationView == nil {
+            annotationView = AtmAnnotationView(annotation: annotation, reuseIdentifier: kAtmAnnotationViewReusableIdentifier)
+            annotationView?.image = UIImage(named: "atmWhite")
+        } else {
+            annotationView!.annotation = annotation
         }
+        
+        return annotationView
+    }
 }

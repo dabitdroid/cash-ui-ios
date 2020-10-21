@@ -30,7 +30,11 @@ class ActionViewController: UIViewController {
     
     func roundViews() {
         view.layer.cornerRadius = 10
-        view.clipsToBounds = true
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowRadius = 10.0
+        view.layer.shadowOpacity = 1.0
+        view.layer.shadowOffset = CGSize(width: 1, height: 1)
+        view.layer.masksToBounds = false
     }
     
     public func showView() {

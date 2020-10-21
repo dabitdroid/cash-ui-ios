@@ -138,27 +138,46 @@ extension MapViewController: CLLocationManagerDelegate {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if annotation is MKUserLocation { return nil }
+        
+        var annotationView = mapATMs.dequeueReusableAnnotationView(withIdentifier: kAtmAnnotationViewReusableIdentifier)
+        let annot = annotation as! AtmAnnotation
+        
+        if annotationView == nil {
+            annotationView = AtmAnnotationView(annotation: annotation, reuseIdentifier: kAtmAnnotationViewReusableIdentifier)
             
-            if annotation is MKUserLocation { return nil }
-            
-            var annotationView = mapATMs.dequeueReusableAnnotationView(withIdentifier: kAtmAnnotationViewReusableIdentifier)
-            
-            if annotationView == nil {
-                annotationView = AtmAnnotationView(annotation: annotation, reuseIdentifier: kAtmAnnotationViewReusableIdentifier)
-                let annot = annotation as! AtmAnnotation
-                if (annot.atm.redemption!.boolValue) {
-                    annotationView?.image = UIImage(named: "atmWhite")
-                }
-                else {
-                    annotationView?.image = UIImage(named: "atmGrey")
-                }
-                (annotationView as! AtmAnnotationView).atmMarkerAnnotationViewDelegate = self
-            } else {
-                annotationView!.annotation = annotation
-            }
-            
-            return annotationView
+            (annotationView as! AtmAnnotationView).atmMarkerAnnotationViewDelegate = self
+        } else {
+            annotationView!.annotation = annot
         }
+        
+        if (annot.atm.redemption!.boolValue) {
+            annotationView?.image = UIImage(named: "atmWhite")
+        }
+        else {
+            annotationView?.image = UIImage(named: "atmGrey")
+        }
+        
+        return annotationView
+    }
+    
+    func center(on atm: CashCore.AtmMachine, regionRadius: CLLocationDistance? = kLocationDistance, shouldOffset: Bool? = false) {
+        guard let latitude = atm.latitude, let longitude = atm.longitude else {
+            return
+        }
+        let lat = Double(latitude)
+        let long = Double(longitude)
+        let offset: Double = shouldOffset! ? 0.002 : 0.0
+        let location = CLLocation(latitude: lat! - offset, longitude: long!)
+        mapATMs.centerToLocation(location, regionRadius: regionRadius!)
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let annotationView = view as! AtmAnnotationView
+        guard let atm = annotationView.customCalloutView?.atm else { return }
+        center(on: atm, regionRadius: 500, shouldOffset: true)
+    }
 }
 
 extension MapViewController: AtmInfoViewDelegate {

@@ -9,4 +9,8 @@ extension MKMapView {
                                                   longitudinalMeters: regionRadius)
         setRegion(coordinateRegion, animated: true)
     }
+    
+    func center(annotation: MKAnnotation, in rect: CGRect) {
+
+    }
 }
