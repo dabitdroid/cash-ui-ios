@@ -77,4 +77,8 @@ public class SupportListViewController: UITableViewController, NavigationControl
             detailController.topic = topic
         }
     }
+    
+    @IBAction func presentPrivacyPolicy() {
+        Utilities.presentPrivacyPolicy(controller: self)
+    }
 }

@@ -15,6 +15,8 @@ public class Theme {
         case accentHighlighted = "#5667E0"
         case success = "#5BE081"
         case error = "#EA6654"
+        case icon = "#4F65E3"
+        case noRedemptionCell = "#E5E5E5"
     }
     
     //

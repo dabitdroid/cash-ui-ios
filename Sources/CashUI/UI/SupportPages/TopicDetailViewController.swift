@@ -21,4 +21,8 @@ public class TopicDetailViewController: UIViewController {
         self.contentTextView.text = topic?.content
         self.titleLabel.text = topic?.title
     }
+    
+    @IBAction func presentPrivacyPolicy() {
+        Utilities.presentPrivacyPolicy(controller: self)
+    }
 }

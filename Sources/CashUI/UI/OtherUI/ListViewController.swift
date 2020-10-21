@@ -10,6 +10,8 @@ import UIKit
 import CashCore
 
 class ListViewController: UIViewController {
+    
+    private let reusableIdentifier = "ListTableCellReusableIdentifier"
 
     private var _atmList: [AtmMachine]?
     public var atmList: [AtmMachine]? {
@@ -33,6 +35,8 @@ class ListViewController: UIViewController {
         
 //        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(containerViewTapped))
 //        tableView.addGestureRecognizer(tapRecognizer)
+        
+        tableView.register(UINib(nibName: "ListViewTableViewCell", bundle: nil), forCellReuseIdentifier: reusableIdentifier)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -72,22 +76,14 @@ class ListViewController: UIViewController {
     }
 }
 
-class ListViewTableViewCell: UITableViewCell {
-    
-}
-
 extension ListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = UITableViewCell(style: .subtitle, reuseIdentifier: "tableViewReuseidentifier")
+        let cell = tableView.dequeueReusableCell(withIdentifier: reusableIdentifier, for: indexPath) as! ListViewTableViewCell
         let atm = self.filteredList![indexPath.row] as AtmMachine
-        cell.textLabel!.text = atm.addressDesc
-        if atm.redemption!.boolValue {
-            cell.textLabel?.textColor = .black  // black text for atms supporting redemption
-        } else {
-            cell.textLabel?.textColor = .gray   // grey text for atms not supporting redemption
-        }
-        cell.detailTextLabel!.text = atm.city
+        cell.atm = atm
+        cell.presentationController = self
+        
         return cell
     }
 
