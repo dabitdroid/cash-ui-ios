@@ -64,7 +64,7 @@ class ActivityTableViewCell: UITableViewCell {
             self.atmMachineAddressLabel.text = address.joined(separator: ", ")
         }
         self.amountLabel.text = (transaction.code?.btcAmount ?? "0") + " BTC"
-        self.fundedLabel.text = transaction.status.rawValue
+        self.fundedLabel.text = transaction.status.displayValue
         self.leftView.backgroundColor = UIColor.fromHex(transaction.color)
         self.dateLabel.text = Date().dateString(from: transaction.timestamp)
         self.timeLabel.text = Date().timeString(from: transaction.timestamp)

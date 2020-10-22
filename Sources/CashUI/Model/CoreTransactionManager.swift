@@ -230,7 +230,7 @@ open class CoreTransactionManager {
             switch transaction.status {
             case .VerifyPending, .SendPending:
                 CoreTransactionManager.cancelPending(transaction)
-            case .Awaiting, .FundedNotConfirmed, .Funded, .Withdrawn, .Cancelled:
+            case .Awaiting, .FundedNotConfirmed, .Funded, .Withdrawn, .Cancelled, .Error:
                 CoreTransactionManager.poll(transaction)
             }
         }
