@@ -230,11 +230,8 @@ open class CoreTransactionManager {
             switch transaction.status {
             case .VerifyPending, .SendPending:
                 CoreTransactionManager.cancelPending(transaction)
-            case .Awaiting, .FundedNotConfirmed, .Funded:
+            case .Awaiting, .FundedNotConfirmed, .Funded, .Withdrawn, .Cancelled:
                 CoreTransactionManager.poll(transaction)
-            case  .Withdrawn, .Cancelled:
-                print("Transaction \(transaction.id) status \(transaction.status)")
-            }
         }
     }
     
