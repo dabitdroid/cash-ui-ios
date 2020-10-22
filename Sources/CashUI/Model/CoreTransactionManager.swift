@@ -232,6 +232,7 @@ open class CoreTransactionManager {
                 CoreTransactionManager.cancelPending(transaction)
             case .Awaiting, .FundedNotConfirmed, .Funded, .Withdrawn, .Cancelled:
                 CoreTransactionManager.poll(transaction)
+            }
         }
     }
     
