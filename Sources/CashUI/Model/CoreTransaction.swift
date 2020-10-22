@@ -3,6 +3,7 @@ import Foundation
 import CashCore
 
 public enum CoreTransactionStatus: String, Codable {
+    // IMPORTANT: Do not change the values of the cases as User Defaults will cause exceptions if any objects were stored
     case VerifyPending = "New" // Nice to have.
     case SendPending = "Pending" // Note: Could be send from other wallet. After X time, this transaction may be cancelled if not sent
     case Awaiting = "Transaction Sent"
@@ -10,6 +11,7 @@ public enum CoreTransactionStatus: String, Codable {
     case Funded = "Funded" // It could take some time to be confirmed
     case Withdrawn = "Used"
     case Cancelled = "Cancelled"
+    case Error = "Error"
 
     static func transactionStatus(from status: CodeStatus) -> CoreTransactionStatus {
         switch status {
@@ -23,7 +25,19 @@ public enum CoreTransactionStatus: String, Codable {
             return .Withdrawn
         case .CANCELLED:
             return .Cancelled
+        case .ERROR:
+            return .Error
         }
+    }
+    
+    // Codable stores the rawValue of the enum in the UserDefaults, hence chaning the rawValue
+    // was not an option as retrieving from user defaults would cause an exception
+    // This is a helper variable to return the rawValue with some exceptions
+    public var displayValue: String {
+        if rawValue == "Cancelled" {
+            return "Expired"
+        }
+        return rawValue
     }
 }
 
@@ -71,6 +85,8 @@ public struct CoreTransaction: CustomStringConvertible, Codable, Equatable {
             return "85BB65"
         case .Cancelled:
             return "5e6fa5"
+        case .Error:
+            return "a55e6f"
         }
     }
     

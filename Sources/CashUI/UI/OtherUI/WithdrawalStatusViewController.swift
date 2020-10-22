@@ -90,7 +90,7 @@ class WithdrawalStatusViewController: ActionViewController {
         self.addressTitleLabel.isHidden = true
         
         self.stateLabel.isHidden = false
-        self.stateLabel.text = status.rawValue
+        self.stateLabel.text = status.displayValue
         
         self.redeemView.isHidden = true
         
@@ -105,7 +105,7 @@ class WithdrawalStatusViewController: ActionViewController {
             self.stateLabel.isHidden = true
             self.redeemView.isHidden = false
             break
-        case .Withdrawn, .Cancelled, .VerifyPending:
+        case .Withdrawn, .Cancelled, .VerifyPending, .Error:
             break
         case .SendPending:
             self.qrCodeImageView.isHidden = false

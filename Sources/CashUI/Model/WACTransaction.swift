@@ -43,6 +43,8 @@ public struct WACTransaction: CustomStringConvertible, Codable, Equatable {
             return "85BB65"
         case .Cancelled:
             return "5e6fa5"
+        case .Error:
+            return "a55e6f"
         }
     }
     
