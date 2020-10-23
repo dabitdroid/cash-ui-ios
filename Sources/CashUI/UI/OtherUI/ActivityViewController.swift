@@ -22,6 +22,7 @@ public class ActivityViewController: UIViewController, UIAdaptivePresentationCon
     @IBOutlet open var tableView: UITableView!
     @IBOutlet open var navigationBar: UIView!
     @IBOutlet weak var refreshButton: LoadingButton!
+    @IBOutlet weak var closeButton: UIButton!
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:#selector(refreshHandler),
@@ -31,11 +32,22 @@ public class ActivityViewController: UIViewController, UIAdaptivePresentationCon
         return refreshControl
     }()
     
+    public var shouldShowCloseButton: Bool = true
+    
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        closeButton.tintColor = Theme.color(.icon)
+        closeButton.imageEdgeInsets = UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
+    }
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         setupNavigationBar();
         
+        if !shouldShowCloseButton {
+            closeButton.isHidden = true
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(transactionDidUpdate), name: .CoreTransactionDidChange, object: nil)
         
         refreshHandler(tableView as Any)
@@ -96,6 +108,10 @@ public class ActivityViewController: UIViewController, UIAdaptivePresentationCon
     
     @objc func transactionDidUpdate(_ notification: Notification) {
         self.tableView.reloadData()
+    }
+    
+    @IBAction func closeView(_ sender: Any) {
+        self.dismiss(animated: true)
     }
 }
 

@@ -43,6 +43,7 @@ public class AtmMenuViewController: UIViewController {
     func setupActivityView() {
         let bundle = Bundle.init(for: ActivityViewController.self)
         activityViewController = ActivityViewController(nibName: "ActivityView", bundle: bundle)
+        activityViewController?.shouldShowCloseButton = false
         containerView.addSubview(activityViewController!.view)
     }
 
