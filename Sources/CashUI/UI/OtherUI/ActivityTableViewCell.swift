@@ -29,7 +29,8 @@ class ActivityTableViewCell: UITableViewCell {
     @IBOutlet open var fundedLabel: UILabel!
     @IBOutlet open var rightView: UIView!
     @IBOutlet open var atmMachineNameLabel: UILabel!
-    @IBOutlet open var atmMachineAddressLabel: UILabel!
+    @IBOutlet open var streetLabel: UILabel!
+    @IBOutlet open var stateLabel: UILabel!
     @IBOutlet open var amountTitleLabel: UILabel!
     @IBOutlet open var amountLabel: UILabel!
     @IBOutlet open var leftView: UIView!    
@@ -59,9 +60,12 @@ class ActivityTableViewCell: UITableViewCell {
     private func populateView(from transaction: CoreTransaction) {
         if let atm = transaction.atm {
             self.atmMachineNameLabel.text = atm.addressDesc
-            var address = [atm.city!, atm.state!, atm.zip!]
-            address = address.filter { $0 != ""}
-            self.atmMachineAddressLabel.text = address.joined(separator: ", ")
+            if let addressString = AtmHelper.cityStateZip(for: atm) {
+                self.stateLabel.text = addressString
+            }
+            if let street = atm.street {
+                self.streetLabel.text = street
+            }
         }
         self.amountLabel.text = (transaction.code?.btcAmount ?? "0") + " BTC"
         self.fundedLabel.text = transaction.status.displayValue

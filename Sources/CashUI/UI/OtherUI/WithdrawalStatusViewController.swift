@@ -69,15 +69,28 @@ class WithdrawalStatusViewController: ActionViewController {
             
             setQRCode(from:code.address!, amount:btcAmount)
         
-            self.amountUSDLabel.text = "$\(usdAmount)"
-            self.amountBTCLabel.text = "\(btcAmount)"
+            self.amountUSDLabel.text = String(format: "$%.2f", usdAmount)
+            self.amountBTCLabel.text = "\(code.btcAmount!)"
             self.addressLabel.text = code.address
         }
     }
     
     private func update() {
         if let code = transaction.pCode {
-            self.redeemCodeLabel.text = code
+            let components = code.components(separatedBy: "-")
+            let regularAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 35),
+                                     NSAttributedString.Key.foregroundColor: UIColor.gray]
+            let largeAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 35, weight: .heavy)]
+            let codeString = NSMutableAttributedString(string: "Code: ", attributes: regularAttributes)
+            let pinString = NSAttributedString(string: "\nPIN: ", attributes: regularAttributes)
+            let codeValueString = NSAttributedString(string: components[0], attributes: largeAttributes)
+            let pinValueString = NSAttributedString(string: components[1], attributes: largeAttributes)
+        
+            codeString.append(codeValueString)
+            codeString.append(pinString)
+            codeString.append(pinValueString)
+            
+            self.redeemCodeLabel.attributedText = codeString
         }
         self.updateStatus(transaction.status)
     }
