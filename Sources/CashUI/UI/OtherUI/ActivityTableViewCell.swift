@@ -68,6 +68,7 @@ class ActivityTableViewCell: UITableViewCell {
             }
         }
         self.amountLabel.text = (transaction.code?.btcAmount ?? "0") + " BTC"
+        self.fundedLabel.numberOfLines = transaction.status == CoreTransactionStatus.Awaiting ? 2 : 1
         self.fundedLabel.text = transaction.status.displayValue
         self.leftView.backgroundColor = UIColor.fromHex(transaction.color)
         self.dateLabel.text = Date().dateString(from: transaction.timestamp)
