@@ -136,6 +136,24 @@ open class CoreTransactionManager {
     }
     
     /**
+    Removes a transaction
+    
+    - parameters:
+       - _: The transaction to remove
+     
+     A notification of the removal is not sent as it may have conflicts with UI.
+     Use getTransactions() to get the updated array of transactions.
+    */
+    public class func remove(_ transaction: CoreTransaction) {
+        do {
+            var allObjects = try UserDefaults.standard.getAllObjects()
+            allObjects = allObjects.filter { $0.id !=  transaction.id}
+            try UserDefaults.standard.setObjects(allObjects)
+        }
+        catch {}
+    }
+    
+    /**
      Updates a transaction based on the uniqueness of the address
      
      - parameters:

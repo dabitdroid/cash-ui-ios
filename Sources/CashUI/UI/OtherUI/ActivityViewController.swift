@@ -139,4 +139,20 @@ extension ActivityViewController: UITableViewDataSource, UITableViewDelegate {
         withdrawalStatusVC.transaction = transaction
         self.present(withdrawalStatusVC, animated: true, completion: nil)
     }
+    
+    public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let transaction = self.transactions[indexPath.row]
+        if transaction.status == .Cancelled {
+            return true
+        }
+        return false
+    }
+    
+    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let transaction = self.transactions[indexPath.row]
+        if editingStyle == .delete {
+            CoreTransactionManager.remove(transaction)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }
