@@ -1,7 +1,6 @@
 {
   "images" : [
     {
-      "filename" : "cash_out.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -10,6 +9,7 @@
       "scale" : "2x"
     },
     {
+      "filename" : "List.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
