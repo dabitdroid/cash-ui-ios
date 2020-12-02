@@ -9,32 +9,15 @@
 import UIKit
 import CashCore
 
-class ListViewController: UIViewController {
+class ListViewController: UIViewController, ATMListFilter {
     
     private let reusableIdentifier = "ListTableCellReusableIdentifier"
 
-    private var _atmList: [AtmMachine]?
-    public var atmList: [AtmMachine]? {
-        get {
-            return _atmList
-        }
-        set {
-            _atmList = newValue
-            filteredList = newValue
-            // refresh tableview
-            self.tableView?.reloadData()
-        }
-    }
-    
-    private var filteredList: [AtmMachine]?
-
+    public var filteredList: [AtmMachine]?
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(containerViewTapped))
-//        tableView.addGestureRecognizer(tapRecognizer)
         
         tableView.register(UINib(nibName: "ListViewTableViewCell", bundle: nil), forCellReuseIdentifier: reusableIdentifier)
     }
@@ -44,7 +27,6 @@ class ListViewController: UIViewController {
         
         view.backgroundColor = .clear
         addConstraints()
-//        self.tableView?.reloadData()
     }
     
     func addConstraints() {
@@ -63,15 +45,12 @@ class ListViewController: UIViewController {
         let parent = self.parent as! AtmLocationsViewController
         parent.searchBar.resignFirstResponder()
     }
-    
-    func doSearch(search: String) {
-        filteredList = atmList?.filter { (atm: AtmMachine) -> Bool in
-            return (atm.addressDesc?.lowercased().contains(search.lowercased()))!
-        }
-        if (search.isEmpty) {
-            filteredList = atmList
-        }
-        
+}
+
+// MARK: Map Filtering
+extension ListViewController {
+    func update(_ atms: [AtmMachine]?) {
+        filteredList = atms
         tableView?.reloadData()
     }
 }

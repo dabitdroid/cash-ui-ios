@@ -15,24 +15,7 @@ private let kLocationDistance: Double = 1300000
 private let kHoustonLocation = CLLocation(latitude: 31.3915, longitude: -99.1707)
 
 // TODO: Localize strings
-class MapViewController: UIViewController {
-
-    private var _atmList: [AtmMachine]?
-    public var atmList: [AtmMachine]? {
-        get {
-            return _atmList
-        }
-        set {
-            _atmList = newValue
-            if let items = _atmList {
-                for atmMachine in items {
-                    let annotation = AtmAnnotation.init(atm: atmMachine)
-                    self.atmAnnotations.append(annotation)
-                }
-            }
-            self.mapATMs.addAnnotations(self.atmAnnotations)
-        }
-    }
+class MapViewController: UIViewController, ATMListFilter {
 
     private let mapATMs = MKMapView()
 
@@ -100,26 +83,22 @@ class MapViewController: UIViewController {
         let parent = self.parent as! AtmLocationsViewController
         parent.searchBar.resignFirstResponder()
     }
+}
 
-    func doSearch(search: String) {
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = search
-        request.region = mapATMs.region
-        let search = MKLocalSearch(request: request)
-
-        search.start { response, _ in
-            guard let response = response else {
-                return
+// MARK: Map Filtering
+extension MapViewController {
+    func update(_ atms: [AtmMachine]?) {
+        self.mapATMs.removeAnnotations(self.atmAnnotations)
+        self.atmAnnotations.removeAll()
+        
+        if let items = atms {
+            for atmMachine in items {
+                let annotation = AtmAnnotation.init(atm: atmMachine)
+                self.atmAnnotations.append(annotation)
             }
-
-            let region = response.boundingRegion
-            let point = region.center
-            let coordinate = CLLocationCoordinate2D(latitude: point.latitude, longitude: point.longitude)
-
-            self.mapATMs.centerCoordinate = coordinate
         }
+        self.mapATMs.addAnnotations(self.atmAnnotations)
     }
-
 }
 
 extension MapViewController: CLLocationManagerDelegate {
