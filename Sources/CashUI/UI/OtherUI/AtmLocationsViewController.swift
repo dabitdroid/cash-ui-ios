@@ -9,11 +9,23 @@
 import UIKit
 import CashCore
 
+struct FilterObject {
+    var filterAction: FilterActions
+    var filterButton: UIButton
+}
+
 enum ActionStrings: String {
     case list = "List"
     case map = "Map"
     case send = "Send"
     case details = "Details"
+}
+
+enum FilterActions: Int {
+    case all
+    case redeem
+    case purchase
+    case favorite
 }
 
 public enum Action {
@@ -28,10 +40,47 @@ protocol ActionProtocol {
     func sendCashCode(_ cashCode: CashCore.CashCode)
 }
 
+protocol ATMListFilter {
+    func update(_ atms: [AtmMachine]?)
+}
+
 class AtmLocationsViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var containerView: UIView!
+    
+    @IBOutlet weak var myLocationButton: UIButton!
+    
+    @IBOutlet weak var showAllATMsButton: UIButton!
+    @IBOutlet weak var redeemOnlyATMsButton: UIButton!
+    @IBOutlet weak var purchaseOnlyATMsButton: UIButton!
+    @IBOutlet weak var favoriteATMsButton: UIButton!
+    @IBOutlet var filterButtonsTopConstraints: [NSLayoutConstraint]!
+    
+    private var filterObjectSelected: FilterObject?
+    private var filterButtons: [UIButton] {
+        return [showAllATMsButton, redeemOnlyATMsButton, purchaseOnlyATMsButton, /*favoriteATMsButton*/]
+    }
+    private var _filterObjects: [FilterObject] = []
+    private var filterObjects: [FilterObject] {
+        get {
+            if _filterObjects.isEmpty {
+                var objects: [FilterObject] = []
+                objects.append(FilterObject(filterAction: .all, filterButton: showAllATMsButton))
+                objects.append(FilterObject(filterAction: .redeem, filterButton: redeemOnlyATMsButton))
+                objects.append(FilterObject(filterAction: .purchase, filterButton: purchaseOnlyATMsButton))
+                objects.append(FilterObject(filterAction: .favorite, filterButton: favoriteATMsButton))
+                _filterObjects = objects
+            }
+            return _filterObjects
+        }
+    }
+    private var filterButtonsOpen: Bool = false
+    
+    private var textField: UITextField?
     private var rightBarbuttonItem: UIBarButtonItem?
+    
+    private var atmList: [AtmMachine]?
+    private var filteredList: [AtmMachine]?
     
     var sendVerificationVC: SendVerificationCodeViewController?
     var verifyCashCodeVC: VerifyCashCodeViewController?
@@ -51,12 +100,15 @@ class AtmLocationsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupSearchBar()
         addToggleNavigationItem()
         add(asChildViewController: mapVC)
         
         self.title = "ATM Cash Locations"
         view.backgroundColor = Theme.primaryBackground
+        
+        setRoundBackgroundOnButtons()
+        showAllATMsButton.isSelected = true
+        filterObjectSelected = filterObjects.first
         
         // By now, we should already have a session
         getAtmList()
@@ -69,6 +121,11 @@ class AtmLocationsViewController: UIViewController {
         addVerifyCashCodeView()
     }
     
+    override func didMove(toParent parent: UIViewController?) {
+        setTextFieldAppearance()
+    }
+    
+    // MARK: Actions
     @objc func toggleTapped() {
         if (rightBarbuttonItem?.title == ActionStrings.list.rawValue) {
             // Show tableview
@@ -84,35 +141,47 @@ class AtmLocationsViewController: UIViewController {
         }
     }
     
+    @IBAction func filterButtonTapped(_ sender: UIButton) {
+        if (filterButtonsOpen) {
+            // close
+            filterObjectSelected = self.filterObjects.first(where: { $0.filterButton == sender } )!
+            self.filterButtonsTopConstraints.forEach({ (constraint) in
+                constraint.constant = 10
+            })
+            
+            filterButtons.forEach { (button) in
+                UIView.animate(withDuration: 0.35, animations: {
+                    button.alpha = self.filterObjectSelected?.filterButton == button ? 1 : 0
+                    button.isSelected = self.filterObjectSelected?.filterButton == button
+                    button.superview?.layoutIfNeeded()
+                }) { _ in
+                    button.isHidden = !(self.filterObjectSelected?.filterButton == button)
+                    
+                }
+            }
+            
+            self.doFilter()
+        }
+        else {
+            // open
+            filterButtons.forEach { (button) in
+                guard let idx = self.filterButtonsTopConstraints.firstIndex(where: { $0.firstItem as! UIButton == button }) else { return }
+                self.filterButtonsTopConstraints[idx].constant = 10 + (button.frame.height + 10) * CGFloat(idx)
+                
+                button.isHidden = false
+                UIView.animate(withDuration: 0.35, animations: {
+                    button.alpha = 1
+                    button.superview?.layoutIfNeeded()
+                })
+            }
+        }
+        filterButtonsOpen = !filterButtonsOpen
+    }
+    
+    // MARK: Additioanl views configure
     func addToggleNavigationItem() {
         rightBarbuttonItem = UIBarButtonItem(title: ActionStrings.list.rawValue, style: .plain, target: self, action: #selector(toggleTapped))
         self.navigationItem.rightBarButtonItem = rightBarbuttonItem
-    }
-    
-    func setupSearchBar() {
-        searchBar.backgroundColor = Theme.tertiaryBackground
-        searchBar.layer.cornerRadius = 2.0
-        searchBar.textField.textColor = .white
-    }
-    
-    func doSearch(search: String) {
-        self.mapVC.doSearch(search: search)
-        self.listVC.doSearch(search: search)
-    }
-    
-    func getAtmList() {
-        CoreSessionManager.shared.client!.getAtmList(result: { (result) in
-            switch result {
-            case .success(let response):
-                if let items = response.data?.items {
-                    self.mapVC.atmList = items
-                    self.listVC.atmList = items
-                }
-                break
-            case .failure(_):
-                break
-            }
-        })
     }
     
     func addSheetView(controller: UIViewController) {
@@ -140,16 +209,120 @@ class AtmLocationsViewController: UIViewController {
         verifyCashCodeVC = VerifyCashCodeViewController.init(nibName: "VerifyCashCodeView", bundle: bundle)
         addSheetView(controller: verifyCashCodeVC!)
     }
+    
+    // MARK: Server Calls
+    func getAtmList() {
+        CoreSessionManager.shared.client!.getAtmList(result: { (result) in
+            switch result {
+            case .success(let response):
+                if let items = response.data?.items {
+                    self.atmList = items
+                    self.update(items)
+                }
+                break
+            case .failure(_):
+                break
+            }
+        })
+    }
+    
+}
+
+// MARK: Appearance
+extension AtmLocationsViewController {
+    func setRoundBackgroundOnButtons() {
+        // Set Filter button and My Location Button Appearance
+        filterButtons.forEach { (button) in
+            setViewAppearance(for: button)
+        }
+        setViewAppearance(for: myLocationButton)
+        myLocationButton.imageEdgeInsets = UIEdgeInsets(top: 13, left: 13, bottom: 13, right: 13)
+    }
+    
+    func setViewAppearance(for view: UIView) {
+        setLayerAppearance(for: view.layer)
+        view.layer.cornerRadius = view.bounds.height/2
+    }
+    
+    func setLayerAppearance(for layer: CALayer) {
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.35
+        layer.shadowOffset = CGSize(width: 0, height: 1)
+        layer.shadowRadius = 2
+    }
+    
+    func setTextFieldAppearance() {
+        textField = searchBar.textField
+        searchBar.backgroundImage = nil
+        if #available(iOS 13.0, *) {
+            textField = searchBar.searchTextField
+            textField!.subviews.first?.subviews.first?.removeFromSuperview()
+        }
+        textField!.textColor = .black
+        let image = ImageHelper.ovalImage(with: textField!.bounds)
+        textField!.backgroundColor = UIColor(patternImage: image)
+        
+        self.setLayerAppearance(for: textField!.layer)
+    }
+}
+
+// MARK: Map Filtering
+extension AtmLocationsViewController {
+    func update(_ atms: [AtmMachine]?) {
+        self.mapVC.update(atms)
+        self.listVC.update(atms)
+    }
+    
+    func filter(by string: String = "") {
+        var filter = filteredList
+        if (!string.isEmpty) {
+            filter = filter?.filter { (atm: AtmMachine) -> Bool in
+                let stringLowercased = string.lowercased()
+                return (atm.addressDesc?.lowercased().contains(stringLowercased))!
+                    || atm.city?.lowercased() == stringLowercased
+                    || (atm.street?.lowercased().contains(stringLowercased))!
+            }
+            filteredList = filter
+        }
+    }
+    
+    func filterByAction() {
+        var filter: [AtmMachine]? = filteredList
+        if self.filterObjectSelected?.filterAction == .all {
+            filteredList = filter
+            return
+        }
+        let redeem = self.filterObjectSelected?.filterAction == .redeem
+        filter = filter?.filter( { $0.redemption?.boolValue == redeem })
+        filteredList = filter
+    }
+    
+    func doFilter() {
+        filteredList = atmList
+        filter(by: textField!.text!)
+        filterByAction()
+        update(filteredList)
+    }
 }
 
 extension AtmLocationsViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        doSearch(search: searchBar.text!)
+        doFilter()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.listVC.doSearch(search: searchText)
+        if filterButtonsOpen {
+            filterButtonTapped((filterObjectSelected?.filterButton)!)
+            filterButtonsOpen = false
+        }
+        doFilter()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        // Show all
+        doFilter()
     }
     
     class func sendCoin(amount: String, address: String, completion: @escaping (() -> Void)) {
