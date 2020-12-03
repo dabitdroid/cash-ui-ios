@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3919A092579411E009C6569 /* ListViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3919A082579411E009C6569 /* ListViewTableViewCell.xib */; };
 		B3A9EA1D2527948D00C18CCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A9EA1C2527948D00C18CCD /* AppDelegate.swift */; };
 		B3A9EA1F2527948D00C18CCD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A9EA1E2527948D00C18CCD /* SceneDelegate.swift */; };
 		B3A9EA212527948D00C18CCD /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A9EA202527948D00C18CCD /* FirstViewController.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B3919A082579411E009C6569 /* ListViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListViewTableViewCell.xib; sourceTree = "<group>"; };
 		B3A9EA192527948D00C18CCD /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A9EA1C2527948D00C18CCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A9EA1E2527948D00C18CCD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 		B3A9EA572527C33400C18CCD /* XIB */ = {
 			isa = PBXGroup;
 			children = (
+				B3919A082579411E009C6569 /* ListViewTableViewCell.xib */,
 				B3A9EA582527C33400C18CCD /* SendVerificationView.xib */,
 				B3A9EA592527C33400C18CCD /* ActivityView.xib */,
 				B3A9EA5A2527C33400C18CCD /* AtmLocationsView.xib */,
@@ -218,6 +221,7 @@
 				B3A9EA6D2527C33400C18CCD /* MenuView.xib in Resources */,
 				B3A9EA2B2527948F00C18CCD /* LaunchScreen.storyboard in Resources */,
 				B3A9EA6C2527C33400C18CCD /* ActivityTableViewCell.xib in Resources */,
+				B3919A092579411E009C6569 /* ListViewTableViewCell.xib in Resources */,
 				B3A9EA712527C33400C18CCD /* Assets.xcassets in Resources */,
 				B3A9EA6B2527C33400C18CCD /* ListView.xib in Resources */,
 				B3A9EA6E2527C33400C18CCD /* AtmInfoView.xib in Resources */,

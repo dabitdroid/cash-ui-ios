@@ -18,7 +18,8 @@ class VerifyCashCodeViewController: ActionViewController {
     
     @IBAction func sendCashCode(_ sender: Any) {
         self.view.endEditing(true)
-        CoreSessionManager.shared.client!.createCashCode((atm?.atmId)!, amount!, tokenTextView.text!, result: { (result) in
+        guard let atmId = atm?.atmId, let amnt = amount, let token = tokenTextView.text else { return }
+        CoreSessionManager.shared.client!.createCashCode(String(atmId), amnt, token, result: { (result) in
             switch result {
             case .success(let response):
                 let cashCode = (response.data?.items?.first)!

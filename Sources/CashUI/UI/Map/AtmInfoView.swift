@@ -41,7 +41,7 @@ class AtmInfoView: UIView {
         
 //        self.atmPurchaseOnlyLabel.isHidden = atm.redemption!.boolValue
         self.redeemButton.isSelected = atm.redemption!.boolValue
-        self.purchaseButton.isSelected = !(atm.redemption!.boolValue)
+        self.purchaseButton.isSelected = atm.purchase!.boolValue
         atmIdLabel.text = getDetails(atm:atm)
         if let addressString = AtmHelper.cityStateZip(for: atm) {
             self.stateLabel.text = addressString

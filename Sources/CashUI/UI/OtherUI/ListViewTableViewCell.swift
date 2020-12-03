@@ -32,8 +32,8 @@ public class ListViewTableViewCell: UITableViewCell {
     func displayData() {
         guard let atm = atm else { return }
         self.atmDescriptionLabel.text = atm.addressDesc
-        self.redemptionImageView.isHidden = !atm.redemption!.boolValue
-        self.purchaseImageView.isHidden = atm.redemption!.boolValue
+        self.redemptionImageView.isHidden = atm.redemption!.boolValue
+        self.purchaseImageView.isHidden = atm.purchase!.boolValue
 //        if atm.redemption!.boolValue {
             self.backgroundColor = .white
 //        } else {

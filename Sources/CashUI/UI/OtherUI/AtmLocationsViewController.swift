@@ -291,8 +291,12 @@ extension AtmLocationsViewController {
             filteredList = filter
             return
         }
-        let redeem = self.filterObjectSelected?.filterAction == .redeem
-        filter = filter?.filter( { $0.redemption?.boolValue == redeem })
+        if self.filterObjectSelected?.filterAction == .redeem {
+            filter = filter?.filter( { $0.redemption!.boolValue })
+        }
+        else if self.filterObjectSelected?.filterAction == .purchase {
+            filter = filter?.filter( { $0.purchase!.boolValue })
+        }
         filteredList = filter
     }
     
