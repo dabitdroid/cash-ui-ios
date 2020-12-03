@@ -28,7 +28,6 @@ class ListViewController: UIViewController, ATMListFilter {
         view.backgroundColor = .clear
         tableView.backgroundColor = .clear
         addConstraints()
-        view.superview?.layoutIfNeeded()
         
         let parent = self.parent as! AtmLocationsViewController
         parent.searchBackgroundView.backgroundColor = .white
@@ -41,7 +40,7 @@ class ListViewController: UIViewController, ATMListFilter {
             tableView.topAnchor.constraint(equalTo: parent.searchBackgroundView.bottomAnchor, constant: 0),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0.0)
+            tableView.bottomAnchor.constraint(equalTo: parent.containerView.bottomAnchor, constant: 0.0)
         ])
 
     }

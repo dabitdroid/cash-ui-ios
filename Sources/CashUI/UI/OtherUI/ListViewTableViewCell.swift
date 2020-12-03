@@ -7,8 +7,8 @@ public class ListViewTableViewCell: UITableViewCell {
     @IBOutlet open var atmDescriptionLabel: UILabel!
     @IBOutlet open var streetLabel: UILabel!
     @IBOutlet open var stateLabel: UILabel!
-    @IBOutlet open var redemptionImageView: UIImageView!
-    @IBOutlet open var purchaseImageView: UIImageView!
+    @IBOutlet open var redemptionButton: UIButton!
+    @IBOutlet open var purchaseButton: UIButton!
     @IBOutlet open var favoriteButton: UIButton!
     @IBOutlet open var directionsButton: UIButton!
     
@@ -30,8 +30,8 @@ public class ListViewTableViewCell: UITableViewCell {
     public override func prepareForReuse() {
         super.prepareForReuse()
         self.atmDescriptionLabel.text = ""
-        self.redemptionImageView.isHidden = true
-        self.purchaseImageView.isHidden = true
+        self.redemptionButton.isSelected = false
+        self.purchaseButton.isSelected = false
         self.stateLabel.text = ""
         self.streetLabel.text = ""
     }
@@ -41,8 +41,8 @@ public class ListViewTableViewCell: UITableViewCell {
     func displayData() {
         guard let atm = atm else { return }
         self.atmDescriptionLabel.text = atm.addressDesc
-        self.redemptionImageView.isHidden = !atm.redemption!.boolValue
-        self.purchaseImageView.isHidden = !atm.purchase!.boolValue
+        self.redemptionButton.isSelected = atm.redemption!.boolValue
+        self.purchaseButton.isSelected = atm.purchase!.boolValue
 //        if atm.redemption!.boolValue {
             self.backgroundColor = .white
 //        } else {
