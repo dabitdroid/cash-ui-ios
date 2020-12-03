@@ -27,13 +27,22 @@ public class ListViewTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
+    public override func prepareForReuse() {
+        super.prepareForReuse()
+        self.atmDescriptionLabel.text = ""
+        self.redemptionImageView.isHidden = true
+        self.purchaseImageView.isHidden = true
+        self.stateLabel.text = ""
+        self.streetLabel.text = ""
+    }
+    
     public var presentationController: UIViewController?
     
     func displayData() {
         guard let atm = atm else { return }
         self.atmDescriptionLabel.text = atm.addressDesc
-        self.redemptionImageView.isHidden = atm.redemption!.boolValue
-        self.purchaseImageView.isHidden = atm.purchase!.boolValue
+        self.redemptionImageView.isHidden = !atm.redemption!.boolValue
+        self.purchaseImageView.isHidden = !atm.purchase!.boolValue
 //        if atm.redemption!.boolValue {
             self.backgroundColor = .white
 //        } else {
