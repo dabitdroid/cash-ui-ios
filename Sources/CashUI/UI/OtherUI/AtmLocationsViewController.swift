@@ -220,7 +220,9 @@ class AtmLocationsViewController: UIViewController {
         CoreSessionManager.shared.client!.getAtmList(result: { (result) in
             switch result {
             case .success(let response):
-                if let items = response.data?.items {
+                if var items = response.data?.items {
+                    // Filter out ATMs with no purchase or redeem
+                    items = items.filter( { $0.redemption!.boolValue || $0.purchase!.boolValue })
                     self.atmList = items
                     self.update(items)
                 }
