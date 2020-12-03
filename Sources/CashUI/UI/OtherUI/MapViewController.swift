@@ -143,7 +143,7 @@ extension MapViewController: MKMapViewDelegate {
             annotationView!.annotation = annot
         }
         
-        if (annot.atm.redemption!.boolValue) {
+        if annot.atm.redemption!.boolValue {
             annotationView?.image = UIImage(named: "atmWhite")
         }
         else {
@@ -159,14 +159,18 @@ extension MapViewController: MKMapViewDelegate {
         }
         let lat = Double(latitude)
         let long = Double(longitude)
-        let offset: Double = shouldOffset! ? 0.00255 : 0.0
-        let location = CLLocation(latitude: lat! - offset, longitude: long!)
-        mapATMs.centerToLocation(location, regionRadius: regionRadius!)
+//        let offset: Double = shouldOffset! ? 0.002 : 0.0
+//        let offset: Double = shouldOffset! ? 0.00255 : 0.0
+//        let location = CLLocation(latitude: lat! - offset, longitude: long!)
+        let coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
+        mapATMs.setCenter(coordinate, animated: true)
+//        mapATMs.centerToLocation(location, regionRadius: regionRadius!)
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let annotationView = view as! AtmAnnotationView
         guard let atm = annotationView.customCalloutView?.atm else { return }
+//        center(on: atm, regionRadius: 500, shouldOffset: true)
         center(on: atm)
     }
     
@@ -185,7 +189,7 @@ extension MapViewController: MKMapViewDelegate {
 
 extension MapViewController: AtmInfoViewDelegate {
     func detailsRequestedForAtm(atm: AtmMachine) {
-        center(on: atm, regionRadius: 500, shouldOffset: true)
+//        center(on: atm, regionRadius: 500, shouldOffset: true)
         let parent = self.parent as! AtmLocationsViewController
         parent.sendVerificationVC?.setAtmInfo(atm)
         parent.verifyCashCodeVC?.atmMachineTitleLabel.text = atm.addressDesc
