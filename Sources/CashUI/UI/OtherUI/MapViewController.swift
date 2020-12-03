@@ -33,15 +33,17 @@ class MapViewController: UIViewController, ATMListFilter {
         super.viewDidLoad()
         addSubviews()
         setupMapView()
-        
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
+        mapATMs.centerToLocation(kHoustonLocation, regionRadius: kLocationDistance)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         checkLocationAuthorizationStatus()
         addConstraints()
+        
+        let parent = self.parent as! AtmLocationsViewController
+        parent.searchBackgroundView.backgroundColor = .clear
+        parent.myLocationButton.isHidden = false
     }
     
     func checkLocationAuthorizationStatus() {
@@ -83,6 +85,11 @@ class MapViewController: UIViewController, ATMListFilter {
         let parent = self.parent as! AtmLocationsViewController
         parent.searchBar.resignFirstResponder()
     }
+    
+    public func locationButtonTapped(_ sender: UIButton) {
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
 }
 
 // MARK: Map Filtering
@@ -104,12 +111,17 @@ extension MapViewController {
 extension MapViewController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        mapATMs.centerToLocation(kHoustonLocation, regionRadius: kLocationDistance)
         locationManager.stopUpdatingLocation()
+        mapATMs.centerToLocation(manager.location!, regionRadius: kLocationDistance)
+        
+        let parent = self.parent as! AtmLocationsViewController
+        parent.myLocationButton.isSelected = true
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
+        let parent = self.parent as! AtmLocationsViewController
+        parent.myLocationButton.isSelected = false
     }
     
 }

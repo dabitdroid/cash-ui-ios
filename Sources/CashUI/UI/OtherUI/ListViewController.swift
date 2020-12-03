@@ -26,13 +26,19 @@ class ListViewController: UIViewController, ATMListFilter {
         super.viewDidAppear(animated)
         
         view.backgroundColor = .clear
+        tableView.backgroundColor = .clear
         addConstraints()
+        view.superview?.layoutIfNeeded()
+        
+        let parent = self.parent as! AtmLocationsViewController
+        parent.searchBackgroundView.backgroundColor = .white
+        parent.myLocationButton.isHidden = true
     }
     
     func addConstraints() {
         let parent = self.parent as! AtmLocationsViewController
         tableView.constrain([
-            tableView.topAnchor.constraint(equalTo: parent.containerView.topAnchor, constant: 0),
+            tableView.topAnchor.constraint(equalTo: parent.searchBackgroundView.bottomAnchor, constant: 0),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0.0)
@@ -86,6 +92,10 @@ extension ListViewController: UITableViewDelegate {
         parent.verifyCashCodeVC!.atm = atm
         
         containerViewTapped(tableView)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 76
     }
 }
 

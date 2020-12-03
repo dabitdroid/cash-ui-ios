@@ -8,6 +8,7 @@ public class ListViewTableViewCell: UITableViewCell {
     @IBOutlet open var streetLabel: UILabel!
     @IBOutlet open var stateLabel: UILabel!
     @IBOutlet open var redemptionImageView: UIImageView!
+    @IBOutlet open var purchaseImageView: UIImageView!
     @IBOutlet open var favoriteButton: UIButton!
     @IBOutlet open var directionsButton: UIButton!
     
@@ -32,11 +33,12 @@ public class ListViewTableViewCell: UITableViewCell {
         guard let atm = atm else { return }
         self.atmDescriptionLabel.text = atm.addressDesc
         self.redemptionImageView.isHidden = !atm.redemption!.boolValue
-        if atm.redemption!.boolValue {
+        self.purchaseImageView.isHidden = atm.redemption!.boolValue
+//        if atm.redemption!.boolValue {
             self.backgroundColor = .white
-        } else {
-            self.backgroundColor = Theme.color(.noRedemptionCell)
-        }
+//        } else {
+//            self.backgroundColor = Theme.color(.noRedemptionCell)
+//        }
         let addressDescription = AtmHelper.cityStateZip(for: atm)
         self.stateLabel.text = addressDescription
         guard let street = atm.street else { return }
