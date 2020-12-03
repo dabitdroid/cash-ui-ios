@@ -17,6 +17,9 @@ class AtmInfoView: UIView {
     @IBOutlet weak var atmPurchaseOnlyLabel: UILabel!
     @IBOutlet weak var streetLabel: UILabel!
     @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var redeemButton: UIButton!
+    @IBOutlet weak var purchaseButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var directionsButton: UIButton!
     
     public var atm: CashCore.AtmMachine!
@@ -36,7 +39,9 @@ class AtmInfoView: UIView {
     func configureWithAtm(atm: CashCore.AtmMachine) {
         self.atm = atm
         
-        self.atmPurchaseOnlyLabel.isHidden = atm.redemption!.boolValue
+//        self.atmPurchaseOnlyLabel.isHidden = atm.redemption!.boolValue
+        self.redeemButton.isSelected = atm.redemption!.boolValue
+        self.purchaseButton.isSelected = !(atm.redemption!.boolValue)
         atmIdLabel.text = getDetails(atm:atm)
         if let addressString = AtmHelper.cityStateZip(for: atm) {
             self.stateLabel.text = addressString
