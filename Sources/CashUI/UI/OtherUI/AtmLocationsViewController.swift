@@ -50,6 +50,7 @@ class AtmLocationsViewController: UIViewController {
     
     @IBOutlet weak var myLocationButton: UIButton!
     
+    @IBOutlet weak var searchBackgroundView: UIView!
     @IBOutlet weak var showAllATMsButton: UIButton!
     @IBOutlet weak var redeemOnlyATMsButton: UIButton!
     @IBOutlet weak var purchaseOnlyATMsButton: UIButton!
@@ -178,6 +179,10 @@ class AtmLocationsViewController: UIViewController {
         filterButtonsOpen = !filterButtonsOpen
     }
     
+    @IBAction func locationButtonTapped(_ sender: UIButton) {
+        self.mapVC.locationButtonTapped(sender)
+    }
+    
     // MARK: Additioanl views configure
     func addToggleNavigationItem() {
         rightBarbuttonItem = UIBarButtonItem(title: ActionStrings.list.rawValue, style: .plain, target: self, action: #selector(toggleTapped))
@@ -236,7 +241,6 @@ extension AtmLocationsViewController {
             setViewAppearance(for: button)
         }
         setViewAppearance(for: myLocationButton)
-        myLocationButton.imageEdgeInsets = UIEdgeInsets(top: 13, left: 13, bottom: 13, right: 13)
     }
     
     func setViewAppearance(for view: UIView) {
@@ -253,15 +257,9 @@ extension AtmLocationsViewController {
     }
     
     func setTextFieldAppearance() {
-        textField = searchBar.textField
-        searchBar.backgroundImage = nil
-        if #available(iOS 13.0, *) {
-            textField = searchBar.searchTextField
-            textField!.subviews.first?.subviews.first?.removeFromSuperview()
-        }
+        textField = searchBar.textFld
+        searchBar.clearBackgroundColor()
         textField!.textColor = .black
-        let image = ImageHelper.ovalImage(with: textField!.bounds)
-        textField!.backgroundColor = UIColor(patternImage: image)
         
         self.setLayerAppearance(for: textField!.layer)
     }

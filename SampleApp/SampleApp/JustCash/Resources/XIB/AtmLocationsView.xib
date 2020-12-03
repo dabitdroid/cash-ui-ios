@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,6 +15,7 @@
                 <outlet property="myLocationButton" destination="Pdh-WJ-OSU" id="rhu-zc-LCQ"/>
                 <outlet property="purchaseOnlyATMsButton" destination="7am-Ps-PHt" id="QLR-To-PKq"/>
                 <outlet property="redeemOnlyATMsButton" destination="jPG-cA-yYp" id="LEO-uD-H5V"/>
+                <outlet property="searchBackgroundView" destination="WnQ-Vc-pTN" id="4gf-sv-a3F"/>
                 <outlet property="searchBar" destination="EVo-Ml-mKL" id="XCI-OD-by7"/>
                 <outlet property="showAllATMsButton" destination="9My-qt-xmP" id="m1I-YC-AzQ"/>
                 <outlet property="view" destination="iN0-l3-epB" id="3Lt-9F-tZB"/>
@@ -29,7 +31,21 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Gg-xR-FtP" userLabel="Container View">
-                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WnQ-Vc-pTN">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="72B-A8-Dwt"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="WnQ-Vc-pTN" secondAttribute="trailing" id="3gE-1b-kZT"/>
+                        <constraint firstItem="WnQ-Vc-pTN" firstAttribute="leading" secondItem="0Gg-xR-FtP" secondAttribute="leading" id="6u1-Q2-hLk"/>
+                        <constraint firstItem="WnQ-Vc-pTN" firstAttribute="top" secondItem="0Gg-xR-FtP" secondAttribute="top" id="Upe-I8-8cQ"/>
+                    </constraints>
                 </view>
                 <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search Atm Locations" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVo-Ml-mKL">
                     <rect key="frame" x="0.0" y="52" width="366" height="44"/>
@@ -50,10 +66,15 @@
                         <constraint firstAttribute="height" constant="40" id="Qap-4h-yZq"/>
                         <constraint firstAttribute="width" constant="40" id="pLM-km-IcN"/>
                     </constraints>
-                    <state key="normal" image="myLocationDisabled">
+                    <inset key="imageEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                    <state key="normal" image="myLocation_unselected">
                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                     </state>
+                    <state key="selected" image="myLocation"/>
+                    <connections>
+                        <action selector="locationButtonTapped:" destination="-1" eventType="touchUpInside" id="gCN-sA-Wro"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9My-qt-xmP" userLabel="Show All ATMs Button">
                     <rect key="frame" x="366" y="54" width="40" height="40"/>
@@ -122,8 +143,8 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Pdh-WJ-OSU" secondAttribute="bottom" constant="20" id="BSp-oC-PJ9"/>
                 <constraint firstItem="9My-qt-xmP" firstAttribute="leading" secondItem="EVo-Ml-mKL" secondAttribute="trailing" id="DGA-cg-X0o"/>
                 <constraint firstItem="0Gg-xR-FtP" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="DeB-m1-snD"/>
+                <constraint firstItem="0Gg-xR-FtP" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="E7K-db-IJe"/>
                 <constraint firstItem="0Gg-xR-FtP" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="EuG-tu-vhy"/>
-                <constraint firstAttribute="bottom" secondItem="0Gg-xR-FtP" secondAttribute="bottom" id="FLV-gI-MoL"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6gb-pc-d6L" secondAttribute="trailing" constant="8" id="J9C-Wz-QmJ"/>
                 <constraint firstItem="9My-qt-xmP" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="Ki8-xb-LD5"/>
                 <constraint firstItem="0Gg-xR-FtP" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Q3v-ts-jS1"/>
@@ -147,6 +168,7 @@
         <image name="bitcoin_unselected" width="20" height="27"/>
         <image name="cashout" width="29.5" height="19.5"/>
         <image name="cashout_unselected" width="29.5" height="19.5"/>
-        <image name="myLocationDisabled" width="32.5" height="32.5"/>
+        <image name="myLocation" width="23.5" height="23.5"/>
+        <image name="myLocation_unselected" width="23.5" height="23.5"/>
     </resources>
 </document>

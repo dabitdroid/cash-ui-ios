@@ -33,15 +33,17 @@ class MapViewController: UIViewController, ATMListFilter {
         super.viewDidLoad()
         addSubviews()
         setupMapView()
-        
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
+        mapATMs.centerToLocation(kHoustonLocation, regionRadius: kLocationDistance)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         checkLocationAuthorizationStatus()
         addConstraints()
+        
+        let parent = self.parent as! AtmLocationsViewController
+        parent.searchBackgroundView.backgroundColor = .clear
+        parent.myLocationButton.isHidden = false
     }
     
     func checkLocationAuthorizationStatus() {
@@ -83,6 +85,11 @@ class MapViewController: UIViewController, ATMListFilter {
         let parent = self.parent as! AtmLocationsViewController
         parent.searchBar.resignFirstResponder()
     }
+    
+    public func locationButtonTapped(_ sender: UIButton) {
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
 }
 
 // MARK: Map Filtering
@@ -104,12 +111,17 @@ extension MapViewController {
 extension MapViewController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        mapATMs.centerToLocation(kHoustonLocation, regionRadius: kLocationDistance)
         locationManager.stopUpdatingLocation()
+        mapATMs.centerToLocation(manager.location!, regionRadius: kLocationDistance)
+        
+        let parent = self.parent as! AtmLocationsViewController
+        parent.myLocationButton.isSelected = true
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
+        let parent = self.parent as! AtmLocationsViewController
+        parent.myLocationButton.isSelected = false
     }
     
 }
@@ -147,7 +159,7 @@ extension MapViewController: MKMapViewDelegate {
         }
         let lat = Double(latitude)
         let long = Double(longitude)
-        let offset: Double = shouldOffset! ? 0.002 : 0.0
+        let offset: Double = shouldOffset! ? 0.00255 : 0.0
         let location = CLLocation(latitude: lat! - offset, longitude: long!)
         mapATMs.centerToLocation(location, regionRadius: regionRadius!)
     }
@@ -155,12 +167,25 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let annotationView = view as! AtmAnnotationView
         guard let atm = annotationView.customCalloutView?.atm else { return }
-        center(on: atm, regionRadius: 500, shouldOffset: true)
+        center(on: atm)
     }
+    
+//    func centerAnnotationInRect(annotation: MKAnnotation, rect: CGRect) {
+//
+//        let visibleCenter = CGPointMake(rect.midX, CGRectGetMidY(rect))
+//
+//        let annotationCenter = mapATMs.convert(annotation.coordinate, toPointTo: view)
+//
+//        let distanceX: CGFloat = visibleCenter.x - annotationCenter.x
+//        let distanceY = visibleCenter.y - annotationCenter.y
+
+//        mapATMs.scrollWithOffset(CGPoint(x: distanceX, y: distanceY), animated: true)
+//    }
 }
 
 extension MapViewController: AtmInfoViewDelegate {
     func detailsRequestedForAtm(atm: AtmMachine) {
+        center(on: atm, regionRadius: 500, shouldOffset: true)
         let parent = self.parent as! AtmLocationsViewController
         parent.sendVerificationVC?.setAtmInfo(atm)
         parent.verifyCashCodeVC?.atmMachineTitleLabel.text = atm.addressDesc
