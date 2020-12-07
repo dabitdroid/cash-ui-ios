@@ -36,11 +36,17 @@ class ListViewController: UIViewController, ATMListFilter {
     
     func addConstraints() {
         let parent = self.parent as! AtmLocationsViewController
+        view.constrain([
+            view.topAnchor.constraint(equalTo: parent.searchBackgroundView.bottomAnchor, constant: 0),
+            view.leadingAnchor.constraint(equalTo: parent.containerView.leadingAnchor, constant: 0),
+            view.trailingAnchor.constraint(equalTo: parent.containerView.trailingAnchor, constant: 0),
+            view.bottomAnchor.constraint(equalTo: parent.containerView.bottomAnchor, constant: 0.0)
+        ])
         tableView.constrain([
             tableView.topAnchor.constraint(equalTo: parent.searchBackgroundView.bottomAnchor, constant: 0),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: parent.containerView.bottomAnchor, constant: 0.0)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0.0)
         ])
 
     }

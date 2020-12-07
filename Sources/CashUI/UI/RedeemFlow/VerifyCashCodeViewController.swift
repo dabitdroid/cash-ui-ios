@@ -35,7 +35,7 @@ class VerifyCashCodeViewController: ActionViewController {
                 break
             }
             
-            self.view.hideAnimated()
+            self.hideAnimated()
             
             self.actionCallback?.actiondDidComplete(action: .cashCodeVerification)
             self.clearViews()
