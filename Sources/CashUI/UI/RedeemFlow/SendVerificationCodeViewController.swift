@@ -48,7 +48,7 @@ class SendVerificationCodeViewController: ActionViewController {
                                                                phoneNumber: phoneNumber,
                                                                email: "",
                                                                result: { (result) in
-            self.view.hideAnimated()
+            self.hideAnimated()
             self.actionCallback?.withdraw(amount: self.amountToWithdrawTextField.text!)
             self.actionCallback?.actiondDidComplete(action: .sendVerificationCode)
             self.clearViews()

@@ -37,15 +37,44 @@ class ActionViewController: UIViewController {
         view.layer.masksToBounds = false
     }
     
+    func getConstraint() -> NSLayoutConstraint? {
+        guard let controllerClass: AnyClass = NSClassFromString("CashUI.SendVerificationCodeViewController"), let parent = self.parent as? AtmLocationsViewController else { return nil }
+        let index = self.isKind(of: controllerClass) ? 0 : 1
+        let constraint = parent.redeeemFlowAnimatableTopConstraints[index]
+        return constraint
+    }
+    
+    func showAnimated() {
+        view.isHidden = false
+        guard let constraint = getConstraint() else { return }
+        constraint.constant = -view.frame.height
+        UIView.animate(withDuration: 0.35, animations: {
+            self.view.superview?.layoutIfNeeded()
+        })
+    }
+    
+    func hideAnimated() {
+        guard let constraint = getConstraint() else { return }
+        constraint.constant = 0.0
+        UIView.animate(withDuration: 0.35, animations: {
+            self.view.superview?.layoutIfNeeded()
+        }) { _ in
+            self.view.isHidden = true
+        }
+    }
+    
     public func showView() {
-        self.view.showAnimated()
+        showAnimated()
+        
         // Observe keyboard change
         NotificationCenter.default.addObserver(self, selector:#selector(adjustForKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc public func hideView() {
-        self.view.hideAnimated()
+        if (!keyboardShown) {
+            self.hideAnimated()
+        }
         self.view.endEditing(true)
         NotificationCenter.default.removeObserver(self)
     }
@@ -88,10 +117,8 @@ class ActionViewController: UIViewController {
         guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         
         let keyboardSize = keyboardValue.cgRectValue.size
-        var yOrigin: CGFloat = keyboardSize.height
 
         if notification.name == UIResponder.keyboardWillHideNotification {
-            yOrigin = -yOrigin
             keyboardShown = false
         }
         else {
@@ -101,15 +128,16 @@ class ActionViewController: UIViewController {
         
         let userInfo = notification.userInfo
         let duration:TimeInterval = (userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
-        let animationCurveRawNSN = userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber
-        let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIView.AnimationOptions.curveEaseInOut.rawValue
-        let animationCurve:UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationCurveRaw)
         
-        UIView.animateKeyframes(withDuration: duration, delay: 0, options: animationCurve, animations: {
-            var f = self.view.frame
-            f.origin.y -= yOrigin
-            self.view.frame = f
-        }, completion: nil)
+        guard let constraint = getConstraint() else { return }
+        constraint.constant = keyboardShown ? -view.frame.height - keyboardSize.height : 0
+        UIView.animate(withDuration: duration, animations: {
+            self.view.superview?.layoutIfNeeded()
+        }) { _ in
+            if !self.keyboardShown {
+                self.view.isHidden = true
+            }
+        }
     }
     
     func textDidChange(_ sender: Any) {

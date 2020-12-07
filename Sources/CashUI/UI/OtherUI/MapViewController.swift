@@ -59,8 +59,14 @@ class MapViewController: UIViewController, ATMListFilter {
 
     func addConstraints() {
         let parent = self.parent as! AtmLocationsViewController
+        view.constrain([
+            view.topAnchor.constraint(equalTo: parent.containerView.topAnchor, constant: 0),
+            view.leadingAnchor.constraint(equalTo: parent.containerView.leadingAnchor, constant: 0),
+            view.trailingAnchor.constraint(equalTo: parent.containerView.trailingAnchor, constant: 0),
+            view.bottomAnchor.constraint(equalTo: parent.containerView.bottomAnchor, constant: 0.0)
+        ])
         mapATMs.constrain([
-            mapATMs.topAnchor.constraint(equalTo: parent.containerView.topAnchor, constant: 0),
+            mapATMs.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
             mapATMs.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             mapATMs.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             mapATMs.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0.0)

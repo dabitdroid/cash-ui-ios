@@ -55,8 +55,10 @@ class AtmLocationsViewController: UIViewController {
     @IBOutlet weak var redeemOnlyATMsButton: UIButton!
     @IBOutlet weak var purchaseOnlyATMsButton: UIButton!
     @IBOutlet weak var favoriteATMsButton: UIButton!
-    @IBOutlet var filterButtonsTopConstraints: [NSLayoutConstraint]!
     
+    // Filter
+    @IBOutlet var filterButtonsTopConstraints: [NSLayoutConstraint]!
+    private var filterButtonsOpen: Bool = false
     private var filterObjectSelected: FilterObject?
     private var filterButtons: [UIButton] {
         return [showAllATMsButton, redeemOnlyATMsButton, purchaseOnlyATMsButton, /*favoriteATMsButton*/]
@@ -75,7 +77,6 @@ class AtmLocationsViewController: UIViewController {
             return _filterObjects
         }
     }
-    private var filterButtonsOpen: Bool = false
     
     private var textField: UITextField?
     private var rightBarbuttonItem: UIBarButtonItem?
@@ -85,6 +86,8 @@ class AtmLocationsViewController: UIViewController {
     
     var sendVerificationVC: SendVerificationCodeViewController?
     var verifyCashCodeVC: VerifyCashCodeViewController?
+    // TODO: make this one a key-value pair with instance - constraint
+    var redeeemFlowAnimatableTopConstraints: [NSLayoutConstraint] = []
     
     var currentContainerViewVC: UIViewController?
     
@@ -200,7 +203,17 @@ class AtmLocationsViewController: UIViewController {
 
         let height = controller.view.frame.height
         let width  = view.frame.width
-        controller.view.frame = CGRect(x: 0, y: self.view.frame.size.height, width: width, height: height)
+        let v = controller.view
+        let topConstraint = v!.topAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        v!.constrain([
+            v!.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            v!.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            topConstraint,
+            v!.heightAnchor.constraint(equalToConstant: height),
+            v!.widthAnchor.constraint(equalToConstant: width)
+        ])
+        v!.isHidden = true
+        redeeemFlowAnimatableTopConstraints.append(topConstraint)
     }
     
     func addSendVerificationView() {
