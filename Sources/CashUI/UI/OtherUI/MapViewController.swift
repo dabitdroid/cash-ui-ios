@@ -174,6 +174,13 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let MKUserLocationView: AnyClass = NSClassFromString("MKUserLocationView") else { return }
+        if view.isKind(of: MKUserLocationView) {
+            // No op
+            return
+        }
+//        if isAnnotationSelected { return }
+//        isAnnotationSelected = true
         let annotationView = view as! AtmAnnotationView
         guard let atm = annotationView.customCalloutView?.atm else { return }
 //        center(on: atm, regionRadius: 500, shouldOffset: true)
