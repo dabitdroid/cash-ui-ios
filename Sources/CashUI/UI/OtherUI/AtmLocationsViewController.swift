@@ -293,7 +293,7 @@ extension AtmLocationsViewController {
             filter = filter?.filter { (atm: AtmMachine) -> Bool in
                 let stringLowercased = string.lowercased()
                 return (atm.addressDesc?.lowercased().contains(stringLowercased))!
-                    || atm.city?.lowercased() == stringLowercased
+                    || (atm.city?.lowercased().contains(stringLowercased))!
                     || (atm.street?.lowercased().contains(stringLowercased))!
             }
             filteredList = filter
