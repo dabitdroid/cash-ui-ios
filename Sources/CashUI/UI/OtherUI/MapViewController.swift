@@ -149,6 +149,10 @@ extension MapViewController: MKMapViewDelegate {
             annotationView!.annotation = annot
         }
         
+        if annotation.isKind(of: MKUserLocation.self) {
+            annotationView?.isUserInteractionEnabled = false
+        }
+        
         if annot.atm.redemption!.boolValue {
             annotationView?.image = UIImage(named: "atmWhite")
         }
@@ -174,8 +178,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let MKUserLocationView: AnyClass = NSClassFromString("MKUserLocationView") else { return }
-        if view.isKind(of: MKUserLocationView) {
+        if let annotation = view.annotation, annotation.isKind(of: MKUserLocation.self) {
             // No op
             return
         }
