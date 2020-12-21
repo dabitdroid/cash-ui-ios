@@ -13,6 +13,10 @@
             <rect key="frame" x="0.0" y="0.0" width="240" height="96"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDl-ux-9jC">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="96"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="This is a long ATM Name" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HHS-gb-Ibp">
                     <rect key="frame" x="10" y="10" width="220" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -61,26 +65,26 @@
                         <action selector="showMapDirections:" destination="iN0-l3-epB" eventType="touchUpInside" id="cyc-w2-yp5"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbW-sP-7vf" userLabel="Redeem Button">
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbW-sP-7vf" userLabel="Redeem Button">
                     <rect key="frame" x="136" y="62" width="32" height="32"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="32" id="1ug-6Z-07e"/>
                         <constraint firstAttribute="height" constant="32" id="Zlr-Op-hFE"/>
                     </constraints>
-                    <inset key="imageEdgeInsets" minX="6" minY="8" maxX="6" maxY="8"/>
+                    <inset key="imageEdgeInsets" minX="4" minY="8" maxX="4" maxY="8"/>
                     <state key="normal" image="cashout_unselected"/>
                     <state key="selected" image="cashout"/>
                     <connections>
                         <action selector="showMapDirections:" destination="iN0-l3-epB" eventType="touchUpInside" id="nDu-fg-u9a"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P1u-cL-Mkk" userLabel="Purchase Button">
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P1u-cL-Mkk" userLabel="Purchase Button">
                     <rect key="frame" x="72" y="62" width="32" height="32"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="32" id="LDx-N8-NYn"/>
                         <constraint firstAttribute="height" constant="32" id="tHv-vu-FAb"/>
                     </constraints>
-                    <inset key="imageEdgeInsets" minX="7" minY="8" maxX="7" maxY="8"/>
+                    <inset key="imageEdgeInsets" minX="8" minY="7" maxX="8" maxY="7"/>
                     <state key="normal" image="bitcoin_unselected"/>
                     <state key="selected" image="bitcoin"/>
                     <connections>
@@ -90,20 +94,24 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="fDl-ux-9jC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="5cn-7n-p0M"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="9yh-fG-rfh" secondAttribute="bottom" constant="2" id="6fe-MD-0wC"/>
                 <constraint firstItem="3Ce-Ct-o2G" firstAttribute="top" secondItem="HHS-gb-Ibp" secondAttribute="bottom" id="74Q-D4-71b"/>
+                <constraint firstItem="fDl-ux-9jC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="CYF-hg-BsM"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="giA-UR-5C6" secondAttribute="bottom" constant="2" id="E2D-Qk-bo7"/>
                 <constraint firstItem="QDa-LL-XX2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="F5k-oh-W19"/>
                 <constraint firstItem="HHS-gb-Ibp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="ISR-Zx-LE1"/>
                 <constraint firstItem="9yh-fG-rfh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="J0S-qL-w9i"/>
                 <constraint firstItem="giA-UR-5C6" firstAttribute="leading" secondItem="qbW-sP-7vf" secondAttribute="trailing" constant="30" id="LW5-Ul-sX7"/>
                 <constraint firstItem="3Ce-Ct-o2G" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="MhL-It-UJm"/>
+                <constraint firstItem="fDl-ux-9jC" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="N0O-A8-Rys"/>
                 <constraint firstItem="QDa-LL-XX2" firstAttribute="top" secondItem="uhY-o5-zkO" secondAttribute="bottom" constant="8" id="OOq-zX-ho1"/>
                 <constraint firstItem="HHS-gb-Ibp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="bfD-GB-8af"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="giA-UR-5C6" secondAttribute="trailing" constant="10" id="eX0-qY-Ipj"/>
                 <constraint firstAttribute="trailing" secondItem="HHS-gb-Ibp" secondAttribute="trailing" constant="10" id="fyd-bL-3Mm"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="P1u-cL-Mkk" secondAttribute="bottom" constant="2" id="kpp-aN-BMN"/>
                 <constraint firstItem="uhY-o5-zkO" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="lAe-uw-B9n"/>
+                <constraint firstItem="fDl-ux-9jC" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="oel-Kz-aJs"/>
                 <constraint firstItem="uhY-o5-zkO" firstAttribute="top" secondItem="3Ce-Ct-o2G" secondAttribute="bottom" id="pxW-nU-SJU"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="QDa-LL-XX2" secondAttribute="bottom" constant="14" id="qVT-ky-g8l"/>
                 <constraint firstItem="P1u-cL-Mkk" firstAttribute="leading" secondItem="9yh-fG-rfh" secondAttribute="trailing" constant="30" id="teS-WT-M3l"/>
@@ -121,7 +129,7 @@
                 <outlet property="stateLabel" destination="uhY-o5-zkO" id="ox2-ay-yKB"/>
                 <outlet property="streetLabel" destination="3Ce-Ct-o2G" id="TLB-FG-2sm"/>
             </connections>
-            <point key="canvasLocation" x="137.68115942028987" y="94.084821428571431"/>
+            <point key="canvasLocation" x="137.68115942028987" y="93.75"/>
         </view>
     </objects>
     <resources>
