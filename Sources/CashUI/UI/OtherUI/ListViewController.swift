@@ -15,6 +15,7 @@ class ListViewController: UIViewController, ATMListFilter {
 
     public var filteredList: [AtmMachine]?
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var noResultsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,7 @@ class ListViewController: UIViewController, ATMListFilter {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        view.backgroundColor = .clear
+        view.backgroundColor = .white
         tableView.backgroundColor = .clear
         addConstraints()
         
@@ -62,6 +63,8 @@ class ListViewController: UIViewController, ATMListFilter {
 extension ListViewController {
     func update(_ atms: [AtmMachine]?) {
         filteredList = atms
+        tableView?.isHidden = filteredList?.count == 0
+        noResultsLabel?.isHidden = !(filteredList?.count == 0)
         tableView?.reloadData()
     }
 }
