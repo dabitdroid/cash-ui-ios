@@ -12,6 +12,7 @@ class AtmAnnotationView: MKAnnotationView {
     
     weak var atmMarkerAnnotationViewDelegate: AtmInfoViewDelegate?
     weak var customCalloutView: AtmInfoView?
+    
     override var annotation: MKAnnotation? {
         willSet { customCalloutView?.removeFromSuperview() }
     }
@@ -32,8 +33,6 @@ class AtmAnnotationView: MKAnnotationView {
     // when de-selected.
     
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
         if selected {
             self.customCalloutView?.removeFromSuperview() // remove old custom callout (if any)
             
@@ -65,6 +64,7 @@ class AtmAnnotationView: MKAnnotationView {
                 } else { self.customCalloutView!.removeFromSuperview() } // just remove it.
             }
         }
+        super.setSelected(selected, animated: animated)
     }
     
     func loadAtmInfoView() -> AtmInfoView? {

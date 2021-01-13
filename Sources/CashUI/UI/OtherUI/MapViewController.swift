@@ -17,7 +17,8 @@ private let kHoustonLocation = CLLocation(latitude: 31.3915, longitude: -99.1707
 // TODO: Localize strings
 class MapViewController: UIViewController, ATMListFilter {
 
-    private let mapATMs = MKMapView()
+    public let mapATMs = MKMapView()
+    private var timestamp: Double = 0.0
 
     lazy var locationManager: CLLocationManager = {
         var _locationManager = CLLocationManager()
@@ -169,25 +170,31 @@ extension MapViewController: MKMapViewDelegate {
         }
         let lat = Double(latitude)
         let long = Double(longitude)
-//        let offset: Double = shouldOffset! ? 0.002 : 0.0
-//        let offset: Double = shouldOffset! ? 0.00255 : 0.0
-//        let location = CLLocation(latitude: lat! - offset, longitude: long!)
         let coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
         mapATMs.setCenter(coordinate, animated: true)
 //        mapATMs.centerToLocation(location, regionRadius: regionRadius!)
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let ts = CFAbsoluteTimeGetCurrent()
+        if fabs(timestamp - ts) < 1.0 {
+            mapATMs.selectedAnnotations.removeAll()
+            return
+        }
         if let annotation = view.annotation, annotation.isKind(of: MKUserLocation.self) {
             // No op
             return
         }
-//        if isAnnotationSelected { return }
-//        isAnnotationSelected = true
+
         let annotationView = view as! AtmAnnotationView
         guard let atm = annotationView.customCalloutView?.atm else { return }
 //        center(on: atm, regionRadius: 500, shouldOffset: true)
         center(on: atm)
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        let ts = CFAbsoluteTimeGetCurrent()
+        timestamp = ts
     }
     
 //    func centerAnnotationInRect(annotation: MKAnnotation, rect: CGRect) {

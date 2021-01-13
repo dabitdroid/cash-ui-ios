@@ -63,15 +63,12 @@ class AtmInfoView: UIView {
             return self.directionsButton
         }
         if self.bounds.contains(point) {
+            if atm.redemption!.boolValue {
+                delegate?.detailsRequestedForAtm(atm: self.atm)
+            }
             return self
         }
         return nil
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if atm.redemption!.boolValue {
-            delegate?.detailsRequestedForAtm(atm: self.atm)
-        }
     }
     
     @IBAction func showMapDirections(_ sender: Any) {
