@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B37F6A2925BD1C27009E6846 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B37F6A2825BD1C27009E6846 /* GoogleService-Info.plist */; };
+		B37F6A2D25BD2098009E6846 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = B37F6A2C25BD2098009E6846 /* FirebaseMessaging */; };
 		B3919A092579411E009C6569 /* ListViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3919A082579411E009C6569 /* ListViewTableViewCell.xib */; };
 		B3A9EA1D2527948D00C18CCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A9EA1C2527948D00C18CCD /* AppDelegate.swift */; };
 		B3A9EA1F2527948D00C18CCD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A9EA1E2527948D00C18CCD /* SceneDelegate.swift */; };
@@ -31,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B37F6A2825BD1C27009E6846 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B3919A082579411E009C6569 /* ListViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListViewTableViewCell.xib; sourceTree = "<group>"; };
 		B3A9EA192527948D00C18CCD /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A9EA1C2527948D00C18CCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B37F6A2D25BD2098009E6846 /* FirebaseMessaging in Frameworks */,
 				B3A9EA342527954200C18CCD /* CashUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +91,7 @@
 		B3A9EA1B2527948D00C18CCD /* SampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				B37F6A2825BD1C27009E6846 /* GoogleService-Info.plist */,
 				B3A9EA722527C38700C18CCD /* cash-ui-ios */,
 				B3A9EA552527C33400C18CCD /* JustCash */,
 				B3A9EA1C2527948D00C18CCD /* AppDelegate.swift */,
@@ -171,6 +176,7 @@
 			name = SampleApp;
 			packageProductDependencies = (
 				B3A9EA332527954200C18CCD /* CashUI */,
+				B37F6A2C25BD2098009E6846 /* FirebaseMessaging */,
 			);
 			productName = SampleApp;
 			productReference = B3A9EA192527948D00C18CCD /* SampleApp.app */;
@@ -202,6 +208,7 @@
 			mainGroup = B3A9EA102527948D00C18CCD;
 			packageReferences = (
 				B3A9EA322527954200C18CCD /* XCRemoteSwiftPackageReference "cash-ui-ios" */,
+				B37F6A2B25BD2098009E6846 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = B3A9EA1A2527948D00C18CCD /* Products */;
 			projectDirPath = "";
@@ -229,6 +236,7 @@
 				B3A9EA282527948F00C18CCD /* Assets.xcassets in Resources */,
 				B3A9EA6F2527C33400C18CCD /* SupportListStoryboard.storyboard in Resources */,
 				B3A9EA702527C33400C18CCD /* support.json in Resources */,
+				B37F6A2925BD1C27009E6846 /* GoogleService-Info.plist in Resources */,
 				B3A9EA672527C33400C18CCD /* ActivityView.xib in Resources */,
 				B3A9EA682527C33400C18CCD /* AtmLocationsView.xib in Resources */,
 				B3A9EA262527948D00C18CCD /* Main.storyboard in Resources */,
@@ -446,6 +454,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B37F6A2B25BD2098009E6846 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.4.0;
+			};
+		};
 		B3A9EA322527954200C18CCD /* XCRemoteSwiftPackageReference "cash-ui-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/atmcoin/cash-ui-ios.git";
@@ -457,6 +473,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B37F6A2C25BD2098009E6846 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B37F6A2B25BD2098009E6846 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		B3A9EA332527954200C18CCD /* CashUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B3A9EA322527954200C18CCD /* XCRemoteSwiftPackageReference "cash-ui-ios" */;
