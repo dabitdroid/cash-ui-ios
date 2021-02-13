@@ -8,6 +8,11 @@
 
 import UIKit
 import CashCore
+import Firebase
+import UserNotifications
+import FirebaseMessaging
+import SwiftUI
+
 
 class SendVerificationCodeViewController: ActionViewController {
     
@@ -136,6 +141,7 @@ extension SendVerificationCodeViewController {
         let user = CoreUser(firstName: firstName, lastName: lastName, phone: phoneNumber)
         do {
             try UserDefaults.standard.setUser(user)
+            
         } catch {}
     }
     

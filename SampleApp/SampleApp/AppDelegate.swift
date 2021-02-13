@@ -7,13 +7,78 @@
 //
 
 import UIKit
+import Firebase
+import UserNotifications
+import FirebaseMessaging
+import SwiftUI
+
+
+extension UIDevice {
+       var modelName: String {
+           var systemInfo = utsname()
+           uname(&systemInfo)
+           let machineMirror = Mirror(reflecting: systemInfo.machine)
+           let identifier = machineMirror.children.reduce("") { identifier, element in
+               guard let value = element.value as? Int8, value != 0 else { return identifier }
+               return identifier + String(UnicodeScalar(UInt8(value)))
+           }
+           return identifier
+       }
+   }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate  {
+    
+    lazy var functions = Functions.functions()
 
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        Messaging.messaging().token { token, error in
+          if let error = error {
+            print("Error fetching FCM registration token: \(error)")
+          } else if let token = token {
+            let nsObject: AnyObject? = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as AnyObject
+            let version = nsObject as! String
+            print("FCM registration token: \(token)")
+            self.functions.httpsCallable("registerToken").call([
+                "fcmToken": token,
+                "deviceId" : UIDevice.current.identifierForVendor!.uuidString,
+                "phone" : "",
+                "appVersion" : version,
+                "deviceModel": UIDevice.current.modelName,
+                "createdAt" : DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .medium, timeStyle: .short)
+            ]) { (result, error) in
+              if let error = error as NSError? {
+                if error.domain == FunctionsErrorDomain {
+                  let code = FunctionsErrorCode(rawValue: error.code)
+                  let message = error.localizedDescription
+                  let details = error.userInfo[FunctionsErrorDetailsKey]
+                    print("\(code): \(message) \(details)")
+                }
+              }
+            }
+          }
+        }
+
+
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+              options: authOptions,
+              completionHandler: {_, _ in })
+          } else {
+            let settings: UIUserNotificationSettings =
+            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+          }
+
+          application.registerForRemoteNotifications()
         // Override point for customization after application launch.
         return true
     }
