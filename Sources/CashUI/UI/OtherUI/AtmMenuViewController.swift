@@ -11,7 +11,7 @@
 import UIKit
 import CashCore
 
-public class AtmMenuViewController: UIViewController {
+public class AtmMenuViewController: UIViewController, UNUserNotificationCenterDelegate {
 
     @IBOutlet weak var labelMainTitle: UILabel!
     @IBOutlet weak var containerView: UIView!
@@ -22,7 +22,7 @@ public class AtmMenuViewController: UIViewController {
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         let bundle = Bundle.init(for: AtmMenuViewController.self)
         super.init(nibName: "MenuView", bundle: bundle)
-    }
+     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -52,5 +52,5 @@ public class AtmMenuViewController: UIViewController {
         let vc = AtmLocationsViewController(nibName: "AtmLocationsView", bundle: bundle)
         navigationController?.pushViewController(vc, animated: true)
     }
-
+    
 }
