@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		942D6E5225D6A9DA00D6694E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 942D6E5125D6A9DA00D6694E /* GoogleService-Info.plist */; };
+		948E637B25E4401F00AAA158 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 948E637A25E4401E00AAA158 /* GoogleService-Info.plist */; };
 		B3919A092579411E009C6569 /* ListViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3919A082579411E009C6569 /* ListViewTableViewCell.xib */; };
 		B3A9EA1D2527948D00C18CCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A9EA1C2527948D00C18CCD /* AppDelegate.swift */; };
 		B3A9EA1F2527948D00C18CCD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A9EA1E2527948D00C18CCD /* SceneDelegate.swift */; };
@@ -32,7 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		942D6E5125D6A9DA00D6694E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		948E637A25E4401E00AAA158 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "SampleApp/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		94DB69D825DDA2AD00CB2F10 /* SampleApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SampleApp.entitlements; sourceTree = "<group>"; };
 		B3919A082579411E009C6569 /* ListViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListViewTableViewCell.xib; sourceTree = "<group>"; };
 		B3A9EA192527948D00C18CCD /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,7 +74,7 @@
 		B3A9EA102527948D00C18CCD = {
 			isa = PBXGroup;
 			children = (
-				942D6E5125D6A9DA00D6694E /* GoogleService-Info.plist */,
+				948E637A25E4401E00AAA158 /* GoogleService-Info.plist */,
 				B3A9EA1B2527948D00C18CCD /* SampleApp */,
 				B3A9EA1A2527948D00C18CCD /* Products */,
 				D4BB85446170957AB28D1C15 /* Pods */,
@@ -242,8 +242,8 @@
 				B3A9EA662527C33400C18CCD /* SendVerificationView.xib in Resources */,
 				B3A9EA282527948F00C18CCD /* Assets.xcassets in Resources */,
 				B3A9EA6F2527C33400C18CCD /* SupportListStoryboard.storyboard in Resources */,
+				948E637B25E4401F00AAA158 /* GoogleService-Info.plist in Resources */,
 				B3A9EA702527C33400C18CCD /* support.json in Resources */,
-				942D6E5225D6A9DA00D6694E /* GoogleService-Info.plist in Resources */,
 				B3A9EA672527C33400C18CCD /* ActivityView.xib in Resources */,
 				B3A9EA682527C33400C18CCD /* AtmLocationsView.xib in Resources */,
 				B3A9EA262527948D00C18CCD /* Main.storyboard in Resources */,

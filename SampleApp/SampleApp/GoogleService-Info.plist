@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>596251627395-amlm6dfu9ai083f0rdmm3sum75s93mr0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.596251627395-amlm6dfu9ai083f0rdmm3sum75s93mr0</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>596251627395-r02m0k7e9vrha1s9k0obgk8jubp26lhu.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD7nSNMv1D35E7bJJIHit-sqhywY7L0Lrs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>596251627395</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>cash.just.wallet.SampleApp</string>
+	<key>PROJECT_ID</key>
+	<string>just-cash-fcm</string>
+	<key>STORAGE_BUCKET</key>
+	<string>just-cash-fcm.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:596251627395:ios:1000cec3e768534cfab0b6</string>
+</dict>
+</plist>
