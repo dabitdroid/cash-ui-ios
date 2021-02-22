@@ -18,6 +18,7 @@ let package = Package(
         .package(name: "Firebase",
                    url: "https://github.com/firebase/firebase-ios-sdk.git",
                    .branch("7.0-spm-beta")),
+        .package(name:"CountryPicker", url: "https://github.com/SURYAKANTSHARMA/CountryPicker.git", .upToNextMajor(from: "1.2.7")),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -25,6 +26,7 @@ let package = Package(
         .target(
             name: "CashUI",
             dependencies: ["CashCore",
+            "CountryPicker",
             .product(name: "FirebaseMessaging", package: "Firebase"),
             .product(name: "FirebaseFunctions", package: "Firebase"),
             .product(name: "FirebaseAnalytics", package: "Firebase"),

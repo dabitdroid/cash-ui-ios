@@ -12,6 +12,7 @@ import Firebase
 import UserNotifications
 import FirebaseMessaging
 import SwiftUI
+import CountryPicker
 
 extension UIDevice {
        var modelName: String {
@@ -32,13 +33,16 @@ class SendVerificationCodeViewController: ActionViewController {
     @IBOutlet weak var atmMachineTitleLabel: UILabel!
     @IBOutlet weak var amountToWithdrawTextField: CustomTextField!
     @IBOutlet weak var infoAboutMachineLabel: UILabel!
+    
+    @IBOutlet weak var countryCodeTextField: CustomTextField!
     @IBOutlet weak var phoneNumberTextField: CustomTextField!
+    
     @IBOutlet weak var firstNameTextField: CustomTextField!
     @IBOutlet weak var lastNameTextField: CustomTextField!
-    @IBOutlet weak var getAtmCodeButton: UIButton!
+    @IBOutlet weak var getAtmCodeButton: CustomButton!
 
     var validFields: Bool {
-        return amountToWithdrawTextField.isValid && phoneNumberTextField.isValid && firstNameTextField.isValid && lastNameTextField.isValid
+        return amountToWithdrawTextField.isValid && phoneNumberTextField.isValid && firstNameTextField.isValid && lastNameTextField.isValid && countryCodeTextField.isValid
     }
 
     static let defaultMinAmountLimit: Int = 20
@@ -52,7 +56,43 @@ class SendVerificationCodeViewController: ActionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getAtmCodeButton.isEnabled = false
+        
+        setupPickerViewForTextField()
+        
+        amountToWithdrawTextField.placeholder = "some test text"
     }
+    
+    private func setupPickerViewForTextField() {
+
+        let picketView = CountryPickerView.loadPickerView { [weak self] (country) in
+
+                  guard let self = self,
+                      let digitCountrycode = country.digitCountrycode else {
+                      return
+                  }
+                  let text = "\(digitCountrycode) \(country.countryCode)"
+                  self.countryCodeTextField.text = text
+              }
+
+              // Set pick list menually.
+              picketView.setPickList(codes: "US", "MX", "CA")
+              countryCodeTextField.inputView = picketView
+
+              let toolBar =  UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
+              toolBar.barStyle = .default
+              toolBar.sizeToFit()
+
+              // Adding Button ToolBar
+              let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonTapped))
+              toolBar.items = [doneButton]
+              toolBar.isUserInteractionEnabled = true
+              countryCodeTextField.inputAccessoryView = toolBar
+          }
+
+    @objc func doneButtonTapped() -> Bool {
+              self.countryCodeTextField.resignFirstResponder()
+            return false
+          }
     
     @IBAction func getVerificationCodeAction(_ sender: UIButton) {
         self.view.endEditing(true)
@@ -101,6 +141,7 @@ class SendVerificationCodeViewController: ActionViewController {
         self.amountToWithdrawTextField.text = ""
         self.infoAboutMachineLabel.text = ""
         self.phoneNumberTextField.text = ""
+        self.countryCodeTextField.text = ""
         self.firstNameTextField.text = ""
         self.lastNameTextField.text = ""
         self.view.setNeedsDisplay()
@@ -116,6 +157,10 @@ class SendVerificationCodeViewController: ActionViewController {
         case phoneNumberTextField:
             if let errorMessage = text.validatePhoneNumber() {
                 phoneNumberTextField.errorText = errorMessage
+            }
+        case countryCodeTextField:
+            if let errorMessage = text.validatePhoneNumber() {
+                countryCodeTextField.errorText = errorMessage
             }
         case firstNameTextField:
             if let errorMessage = text.validateName() {

@@ -215,6 +215,7 @@
 			mainGroup = B3A9EA102527948D00C18CCD;
 			packageReferences = (
 				B3A9EA322527954200C18CCD /* XCRemoteSwiftPackageReference "cash-ui-ios" */,
+				94DB69DC25E1852C00CB2F10 /* XCRemoteSwiftPackageReference "CountryCode" */,
 			);
 			productRefGroup = B3A9EA1A2527948D00C18CCD /* Products */;
 			projectDirPath = "";
@@ -462,6 +463,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		94DB69DC25E1852C00CB2F10 /* XCRemoteSwiftPackageReference "CountryCode" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/4taras4/CountryCode.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		B3A9EA322527954200C18CCD /* XCRemoteSwiftPackageReference "cash-ui-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/atmcoin/cash-ui-ios.git";
