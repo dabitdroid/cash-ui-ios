@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="amountToWithdrawTextField" destination="afx-Df-vnD" id="afa-qa-Ws6"/>
                 <outlet property="atmMachineTitleLabel" destination="m4T-AD-bX7" id="wHm-0t-Lyi"/>
+                <outlet property="countryCodeTextField" destination="YWG-MG-F5B" id="esh-mh-wdg"/>
                 <outlet property="firstNameTextField" destination="D4X-3v-ZXt" id="hrh-FS-2Ml"/>
                 <outlet property="getAtmCodeButton" destination="ofM-pJ-egC" id="UWF-HT-w1l"/>
                 <outlet property="infoAboutMachineLabel" destination="ueb-T1-b63" id="uL2-44-LaA"/>
@@ -131,6 +132,9 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                    <connections>
+                        <action selector="countryTapped:" destination="-1" eventType="touchDown" id="RHt-Y1-KnU"/>
+                    </connections>
                 </textField>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

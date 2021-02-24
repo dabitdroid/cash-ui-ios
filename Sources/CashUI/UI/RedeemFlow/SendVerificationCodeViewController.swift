@@ -62,6 +62,7 @@ class SendVerificationCodeViewController: ActionViewController {
         amountToWithdrawTextField.placeholder = "some test text"
     }
     
+
     private func setupPickerViewForTextField() {
 
         let picketView = CountryPickerView.loadPickerView { [weak self] (country) in

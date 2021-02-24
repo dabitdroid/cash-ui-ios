@@ -12,20 +12,6 @@ import UserNotifications
 import FirebaseMessaging
 import SwiftUI
 
-
-extension UIDevice {
-       var modelName: String {
-           var systemInfo = utsname()
-           uname(&systemInfo)
-           let machineMirror = Mirror(reflecting: systemInfo.machine)
-           let identifier = machineMirror.children.reduce("") { identifier, element in
-               guard let value = element.value as? Int8, value != 0 else { return identifier }
-               return identifier + String(UnicodeScalar(UInt8(value)))
-           }
-           return identifier
-       }
-   }
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate  {
     
@@ -70,6 +56,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-
 }
-
