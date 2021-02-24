@@ -7,15 +7,11 @@
 //
 
 import UIKit
-import Firebase
 import UserNotifications
-import FirebaseMessaging
 import SwiftUI
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate  {
-    
-    lazy var functions = Functions.functions()
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 

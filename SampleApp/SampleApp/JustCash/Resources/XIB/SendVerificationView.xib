@@ -13,7 +13,6 @@
             <connections>
                 <outlet property="amountToWithdrawTextField" destination="afx-Df-vnD" id="afa-qa-Ws6"/>
                 <outlet property="atmMachineTitleLabel" destination="m4T-AD-bX7" id="wHm-0t-Lyi"/>
-                <outlet property="countryCodeTextField" destination="GNA-if-M7J" id="DIG-hE-n2W"/>
                 <outlet property="firstNameTextField" destination="D4X-3v-ZXt" id="hrh-FS-2Ml"/>
                 <outlet property="getAtmCodeButton" destination="ofM-pJ-egC" id="UWF-HT-w1l"/>
                 <outlet property="infoAboutMachineLabel" destination="ueb-T1-b63" id="uL2-44-LaA"/>
@@ -54,7 +53,7 @@
                     </constraints>
                 </view>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X9r-DF-UH1" customClass="CustomTextField" customModule="CashUI">
-                    <rect key="frame" x="100" y="151.5" width="294" height="34"/>
+                    <rect key="frame" x="20" y="152" width="374" height="34"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="34" id="1po-g4-daF"/>
                     </constraints>
@@ -126,19 +125,10 @@
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="1" id="cfh-Hg-6fB"/>
                     </constraints>
                 </view>
-                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GNA-if-M7J" customClass="CustomTextField" customModule="CashUI">
-                    <rect key="frame" x="20" y="151.5" width="60" height="34"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="34" id="aos-a4-5Ca"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
-                </textField>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="GNA-if-M7J" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="0go-Af-KsN"/>
                 <constraint firstAttribute="trailing" secondItem="yGD-0l-7Nt" secondAttribute="trailing" id="26f-UK-Ym6"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="X9r-DF-UH1" secondAttribute="trailing" constant="20" id="5ko-tc-fdN"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="m4T-AD-bX7" secondAttribute="trailing" constant="20" id="8V6-lw-M8X"/>
@@ -148,9 +138,8 @@
                 <constraint firstItem="vO2-Yd-yK0" firstAttribute="top" secondItem="X9r-DF-UH1" secondAttribute="bottom" constant="5" id="BF7-NU-dfo"/>
                 <constraint firstAttribute="trailing" secondItem="Ram-c2-dlw" secondAttribute="trailing" id="Bhm-Nj-aw7"/>
                 <constraint firstItem="vO2-Yd-yK0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="C7q-XG-MUj"/>
-                <constraint firstItem="GNA-if-M7J" firstAttribute="top" secondItem="Ram-c2-dlw" secondAttribute="bottom" constant="14.5" id="Cyz-Pp-jdk"/>
                 <constraint firstItem="DlL-Ge-lnf" firstAttribute="leading" secondItem="D4X-3v-ZXt" secondAttribute="trailing" constant="14" id="Djf-Pl-dsM"/>
-                <constraint firstItem="X9r-DF-UH1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="100" id="Dlf-xC-0NT"/>
+                <constraint firstItem="X9r-DF-UH1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Dlf-xC-0NT"/>
                 <constraint firstItem="X9r-DF-UH1" firstAttribute="top" secondItem="ueb-T1-b63" secondAttribute="bottom" constant="18" id="F6J-qb-FcV"/>
                 <constraint firstItem="Ram-c2-dlw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="GpX-Yc-Hnh"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="afx-Df-vnD" secondAttribute="trailing" constant="20" id="Hgp-Tj-WoJ"/>
@@ -160,7 +149,6 @@
                 <constraint firstItem="g2E-SZ-sdg" firstAttribute="centerY" secondItem="DlL-Ge-lnf" secondAttribute="centerY" id="LVM-xX-zza"/>
                 <constraint firstItem="DlL-Ge-lnf" firstAttribute="width" secondItem="D4X-3v-ZXt" secondAttribute="width" id="TYl-UU-Tv3"/>
                 <constraint firstItem="yGD-0l-7Nt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="TZZ-Pw-zz3"/>
-                <constraint firstItem="X9r-DF-UH1" firstAttribute="leading" secondItem="GNA-if-M7J" secondAttribute="trailing" constant="20" id="U9I-As-RRJ"/>
                 <constraint firstItem="ueb-T1-b63" firstAttribute="top" secondItem="afx-Df-vnD" secondAttribute="bottom" constant="5" id="VDp-F8-Atb"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="DlL-Ge-lnf" secondAttribute="trailing" constant="20" id="WjH-Ii-LBl"/>
                 <constraint firstItem="DlL-Ge-lnf" firstAttribute="leading" secondItem="g2E-SZ-sdg" secondAttribute="trailing" constant="7" id="YUf-lT-4P8"/>
